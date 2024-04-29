@@ -35,3 +35,5 @@ function StartPage(welcomeMessage) {
         </div>
     )
 }
+
+export default StartPage;
