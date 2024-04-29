@@ -6,6 +6,6 @@ import "../styles/startpage.css";
 
 const [btnClicked, setBtnClicked] = useState(null);
 
-const handleClick = () => {
-    setBtnClicked(1);
-};
+    const handleClick = () => {
+        setBtnClicked(1);
+    };
