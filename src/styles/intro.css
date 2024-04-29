@@ -7,3 +7,20 @@
     width: 100%;
     height: 100%;
 }
+
+.inner-container {
+    width: 50%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inner-container h2,
+.container h2 {
+    font-size: 101px;
+    font-weight: 800;
+    color: #d98b88;
+    font-family: "Londrina Solid", sans-serif;
+    font-weight: 400;
+}
