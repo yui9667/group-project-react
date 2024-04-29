@@ -19,3 +19,8 @@
     font-weight: 400;
     color: #344756;
 }
+
+.start-btn {
+    padding: 12px 50px;
+    margin-top: 5%;
+}
