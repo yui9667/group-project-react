@@ -49,3 +49,7 @@
     font-weight: 400;
     transition: box-shadow .2s ease-in-out;
   }
+
+  .next-btn:hover {
+    background-color: #69D38A;
+  }
