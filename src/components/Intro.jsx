@@ -7,4 +7,19 @@ function Intro({ setName }) {
     const handleSubmit = (event) => {
         setName(username);
     }
+
+    return (
+        <div className="container">
+            <div className="inner-container">
+                <h2>QUIZ TIME</h2>
+                <form className="form-container" onSubmit={handleSubmit}>
+                    <label for="username" className="form-label">Please submit your name before starting the quiz!</label>
+                    <input type="text" id="username" aria-describedby="username" onChange={(event) => { setUsername(event.target.value) }} />
+                    <button type="submit" className="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    );
 }
+
+export default Intro;
