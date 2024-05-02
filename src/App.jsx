@@ -1,7 +1,10 @@
+
 import './App.css';
 import { useEffect, useState } from 'react';
 import Intro from './components/Intro';
-import StartPage from './components/StartPage';
+//import StartPage from './components/StartPage';
+import Modal from "./components/Modal.jsx"
+
 
 // Component Functional
 function App() {
@@ -20,6 +23,7 @@ function App() {
       {
         username.length > 0 ? <StartPage /> : ""
       }
+      <Modal />
     </div>
   );
 }
