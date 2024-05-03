@@ -11,6 +11,7 @@ const Questions = () => {
    const [questionsAndAnswers, setQuestionsAndAnswers] = useState([]);
 
    useEffect(() => {
+      console.log("here")
       // use axios to get the data from the TriviaAPI
       axios
          .get(
@@ -57,7 +58,9 @@ const Questions = () => {
       return array;
    };
 
-   return <div></div>;
+   return (
+      <div></div>
+   );
 };
 
 export default Questions;

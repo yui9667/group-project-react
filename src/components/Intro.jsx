@@ -13,7 +13,7 @@ function Intro({ setName }) {
             <div className="inner-container">
                 <h2>QUIZ TIME</h2>
                 <form className="form-container" onSubmit={handleSubmit}>
-                    <label for="username" className="form-label">Please submit your name before starting the quiz!</label>
+                    <label htmlFor="username" className="form-label">Please submit your name before starting the quiz!</label>
                     <input type="text" id="username" aria-describedby="username" onChange={(event) => { setUsername(event.target.value) }} />
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
