@@ -47,9 +47,11 @@ import Modal from 'react-bootstrap/Modal';*/
          <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>
             <div className="popup-content">
-                <h3>Are you sure you want to exit the game? All your answers will be lost. </h3>
-                <button onClick={toggleModal} className="close-modal">No, go back</button>
-                <button onClick={backToMenu} className="exit-btn"> Yes, exit</button>
+                <h3 className="modal-info">Are you sure you want to exit the game? All your answers will be lost. </h3>
+                <div className="buttons">
+                    <button onClick={toggleModal} className="close-modal">No, go back</button>
+                    <button onClick={backToMenu} className="exit-btn"> Yes, exit</button>
+                </div>
             </div>
           </div>
        )}
