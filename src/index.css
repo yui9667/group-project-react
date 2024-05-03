@@ -1,10 +1,19 @@
-<<<<<<< HEAD
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-=======
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/*
+// TODO: decide what to do with the following style
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -16,16 +25,7 @@ body {
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
->>>>>>> modal
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
-
-<<<<<<< HEAD
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-=======
 a {
   font-weight: 500;
   color: #646cff;
@@ -78,5 +78,5 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
->>>>>>> modal
-}
+} */
+
