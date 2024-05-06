@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import "../components/showanswer.css";
+import "../styles/questions.css";
 
 const ShowAnswer = () => {
   // const [currentQuestion, setCurrentQuestion] = useState([]);
@@ -122,14 +123,14 @@ const ShowAnswer = () => {
                     <FontAwesomeIcon
                       icon={faCheck}
                       size="sm"
-                      style={{ color: "#000000", paddingRight: "10px" }}
+                      style={{ color: "#000000", paddingRight: "10px"}}
                     />
                   )}
                   {selectedAnswer === ans && icon === "wrong" && (
                     <FontAwesomeIcon
                       icon={faXmark}
                       size="sm"
-                      style={{ color: "#000000", paddingRight: "10px" }}
+                      style={{ color: "#000000", paddingRight: "10px"}}
                     />
                   )}
                   {String.fromCharCode(65 + index) + ". "}
