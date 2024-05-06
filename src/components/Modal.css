@@ -55,7 +55,7 @@ body.active-modal {
     left: 50%;
     transform: translate(-50%, -50%);
     line-height: 1.4;
-    background: #f1f1f1;
+    background: #FFFFFF;
     padding: 14px 28px;
     border-radius: 20px;
     min-width: 300px;
@@ -75,12 +75,13 @@ body.active-modal {
     width: 226px;
     height: 62px;
     border-radius: 8px;
+    border: none;
     text-align: center;
 	font-family: 'Londrina solid', sans-serif;
 	font-size: 30px;
 	font-weight: 300;
 	letter-spacing: 0.32px;
-    background: #ECF1EF;
+    background: #dbe1de;
     margin-right: 40px;
 }
 
@@ -97,6 +98,7 @@ body.active-modal {
     width: 226px;
     height: 62px;
     border-radius: 8px;
+    border: none;
     text-align: center;
 	font-family: 'Londrina solid', sans-serif;
 	font-size: 30px;
@@ -110,4 +112,15 @@ body.active-modal {
     .exit-btn:hover {
         background: #bc5a5a;
         cursor: pointer;
+    }
+
+    .xmark {
+        display: flex;
+        align-self: end;
+        padding-right: 40px;
+    }
+
+    .xmark:hover {
+        cursor: pointer;
+        color: rgb(110, 110, 110);
     }

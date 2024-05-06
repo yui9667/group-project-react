@@ -24,8 +24,13 @@ function App() {
         username.length > 0 ? <StartPage /> : ""
       }
       <Modal />
+
     </div>
   );
 }
 
 export default App;
+
+
+
+

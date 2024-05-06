@@ -3,6 +3,8 @@
 //trycker man på go back så återgår man till spelet och där man var 
 import { useState } from "react";
 import "./Modal.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
 /*import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';*/
 
@@ -36,8 +38,10 @@ import Modal from 'react-bootstrap/Modal';*/
       document.body.classList.remove('active-modal')
     }
   
-
+    const element = <FontAwesomeIcon icon={faXmark} />
+    
   return (
+
     <>
       <button
         onClick={toggleModal} className="open-modal"> Open
@@ -47,6 +51,9 @@ import Modal from 'react-bootstrap/Modal';*/
          <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>
             <div className="popup-content">
+                <div onClick={toggleModal} className="xmark">
+                    <FontAwesomeIcon icon={faXmark} size="2x" />
+                </div>
                 <h3 className="modal-info">Are you sure you want to exit the game? All your answers will be lost. </h3>
                 <div className="buttons">
                     <button onClick={toggleModal} className="close-modal">No, go back</button>
