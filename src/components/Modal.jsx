@@ -3,6 +3,8 @@
 //trycker man på go back så återgår man till spelet och där man var 
 import { useState } from "react";
 import "./Modal.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
 /*import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';*/
 
@@ -36,20 +38,26 @@ import Modal from 'react-bootstrap/Modal';*/
       document.body.classList.remove('active-modal')
     }
   
-
+    const element = <FontAwesomeIcon icon={faXmark} />
+    
   return (
+/* <div onClick={toggleModal} className="xmark">
+<FontAwesomeIcon icon={faXmark} size="2x" />
+</div> put inside question card when questions is done*/ 
     <>
-      <button
-        onClick={toggleModal} className="open-modal"> Open
-      </button>
 
       {Modal && (
          <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>
             <div className="popup-content">
-                <h3>Are you sure you want to exit the game? All your answers will be lost. </h3>
-                <button onClick={toggleModal} className="close-modal">No, go back</button>
-                <button onClick={backToMenu} className="exit-btn"> Yes, exit</button>
+                <div onClick={toggleModal} className="xmark">
+                    <FontAwesomeIcon icon={faXmark} size="2x" />
+                </div>
+                <h3 className="modal-info">Are you sure you want to exit the game? All your answers will be lost. </h3>
+                <div className="buttons">
+                    <button onClick={toggleModal} className="close-modal">No, go back</button>
+                    <button onClick={backToMenu} className="exit-btn"> Yes, exit</button>
+                </div>
             </div>
           </div>
        )}
