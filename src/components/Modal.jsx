@@ -41,11 +41,10 @@ import Modal from 'react-bootstrap/Modal';*/
     const element = <FontAwesomeIcon icon={faXmark} />
     
   return (
-
+/* <div onClick={toggleModal} className="xmark">
+<FontAwesomeIcon icon={faXmark} size="2x" />
+</div> put inside question card when questions is done*/ 
     <>
-      <button
-        onClick={toggleModal} className="open-modal"> Open
-      </button>
 
       {Modal && (
          <div className="modal">
