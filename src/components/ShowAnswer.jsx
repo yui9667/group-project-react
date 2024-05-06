@@ -3,46 +3,81 @@ import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import "../styles/showanswer.css";
-//import TriviaButton from "./TriviaButton";
+import "../components/showanswer.css";
 
-const TriviaData = () => {
-  const [currentQuestion, setCurrentQuestion] = useState([]);
+const ShowAnswer = () => {
+  // const [currentQuestion, setCurrentQuestion] = useState([]);
   const [lock, setLock] = useState(false);
   const [icon, setIcon] = useState(false);
-  //const [correctAnswer, setCorrectAnswer] = useState("");
+  // const [correctAnswer, setCorrectAnswer] = useState("");
+  const [questionsAndAnswers, setQuestionsAndAnswers] = useState([]);
+  // tracks the current question.  it starts at the first question (0)
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState();
 
-  //Showing which option is answer. But it is not working. Need to figure out the issue
-  // let option1 = useRef(null);
-  // let option2 = useRef(null);
-  // let option3 = useRef(null);
-  // let option4 = useRef(null);
-  // let options_array = [option1, option2, option3, option4];
-  // console.log(option1, option2, option3, option4);
-  // .get method of axios to get data from the link of API:
   useEffect(() => {
+    // use axios to get the data from the TriviaAPI
     axios
       .get(
         "https://opentdb.com/api.php?amount=10&category=9&difficulty=medium&type=multiple"
       )
-      // .then method to set the data in to state with setCurrentQuestion
       .then((response) => response.data)
-      .then((data) => setCurrentQuestion([data.results[0]]));
+      .then((data) => {
+        // takes the fetched data and maps it into a new structure
+        const questions = data.results.map((questionObject) => ({
+          question: questionObject.question,
+          // combines correct and incorrect answers and shuffles them
+
+          shuffledAnswers: shuffle([
+            ...questionObject.incorrect_answers,
+            questionObject.correct_answer,
+          ]),
+          //  stores the correct answer separately.
+          correctAnswer: questionObject.correct_answer,
+          // initializes the selected answer to an empty string
+          selectedAnswer: "",
+        }));
+        setQuestionsAndAnswers(questions);
+      });
   }, []);
 
-  // function nextQuestion() {
-  //   if (currentQuestion < 9) {
-  //     setCurrentQuestion(currentQuestion + 1);
-  //   } else if (currentQuestion === 9) {
-  //     setIsFinished(1);
-  //   }
-  // }
+  const shuffle = (array) => {
+    // this declares two variables; the length of the array
+    let currentIndex = array.length,
+      randomIndex;
+    //  The while statement creates a loop (araund a code block) that is executed while a condition is true: as long as currentIndex is not zero
+    while (currentIndex !== 0) {
+      // Math.random() used with Math.floor() used to pick an return a random index
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      // the decrement --  operator subtracts one from the current variable's value.
+      currentIndex--;
+      // this swaps the element at currentIndex with the element at randomIndex
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+    // returns the shuffled array
+    return array;
+  };
+  //Going to nextQuestions
+  function nextQuestion() {
+    if (currentQuestionIndex < 9) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    } else if (currentQuestionIndex === 9) {
+      // setIsFinished(1);
+      console.log("hello");
+    }
+  }
 
   //Showing correct or incorrect
   const checkAnswer = (e, ans) => {
-    const correctAnswer = currentQuestion[0].correct_answer === ans;
-    if (lock === false) {
-      if (correctAnswer) {
+    const correctAnswer =
+      questionsAndAnswers[currentQuestionIndex].correctAnswer;
+    //if lock is equal to false, change to true which means then user can select only one option.
+    //if correct answer equal to ans, change the color to green, otherwise change to red.
+    if (!lock) {
+      if (correctAnswer === ans) {
         e.target.classList.add("correct");
         setLock(true);
         setIcon("correct");
@@ -51,70 +86,48 @@ const TriviaData = () => {
         setLock(true);
         setIcon("wrong");
       }
-      console.log("Correct Answer:", currentQuestion[0].correct_answer);
-      console.log("Selected Answer:", ans);
+
+      console.log("currentQuestionIndex:", currentQuestionIndex);
+      console.log("correctAnswer:", correctAnswer);
+      console.log(ans);
+      setSelectedAnswer(ans);
     }
   };
 
   return (
+    //Adding optional chaining so if the {questionsAndAnswers[currentQuestionIndex] is null or undefined, accessing to the question
     <div className="wrapper">
-      {currentQuestion.map((q, index) => (
-        <div className="question-card" key={index}>
-          <h3>{q.question}</h3>
-          <ul className="btn-container">
-            <li
-              onClick={(e) => {
-                checkAnswer(e, q.correct_answer);
-              }}
-            >
-              {icon === "correct" && (
+      <h3>{questionsAndAnswers[currentQuestionIndex]?.question}</h3>
+      <div className="btn-container">
+        {questionsAndAnswers[currentQuestionIndex]?.shuffledAnswers.map(
+          (ans, index) => (
+            <button key={index} onClick={(e) => checkAnswer(e, ans)}>
+              {selectedAnswer === ans && icon === "correct" && (
                 <FontAwesomeIcon
                   icon={faCheck}
                   size="sm"
                   style={{ color: "#000000", paddingRight: "10px" }}
                 />
               )}
-              A. {q.correct_answer}
-            </li>
-
-            <li
-              onClick={(e) => {
-                checkAnswer(e, q.incorrect_answers[0]);
-              }}
-            >
-              {icon === "wrong" && (
+              {selectedAnswer === ans && icon === "wrong" && (
                 <FontAwesomeIcon
                   icon={faXmark}
                   size="sm"
                   style={{ color: "#000000", paddingRight: "10px" }}
                 />
               )}
-              B. {q.incorrect_answers[0]}
-            </li>
-            <li
-              onClick={(e) => {
-                checkAnswer(e, q.incorrect_answers[1]);
-              }}
-            >
-              C. {q.incorrect_answers[1]}
-            </li>
-            <li
-              onClick={(e) => {
-                checkAnswer(e, q.incorrect_answers[2]);
-              }}
-            >
-              D. {q.incorrect_answers[2]}
-            </li>
-          </ul>
+              {String.fromCharCode(65 + index) + ". "}
+              {ans}
+            </button>
+          )
+        )}
+
+        <div className="controls">
+          <button className="next-btn">Next Question</button>
         </div>
-      ))}
-      <div className="controls">
-        <button onClick={nextQuestion} className="next-btn">
-          Next Question
-        </button>
       </div>
     </div>
   );
 };
 
-export default TriviaData;
+export default ShowAnswer;
