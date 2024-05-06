@@ -17,6 +17,7 @@ const ShowAnswer = () => {
   // store each answer given by the user
   const [selectedAnswer, setSelectedAnswer] = useState();
 
+
   useEffect(() => {
     // use axios to get the data from the TriviaAPI
     axios
@@ -103,8 +104,11 @@ const ShowAnswer = () => {
 
   return (
     //Adding optional chaining so if the {questionsAndAnswers[currentQuestionIndex] is null or undefined, accessing to the question
+    //Use dangerouslySetInnerHTML for removing special characters in the questions. Because of the code structure of buttons which include children, this feature could not be included in buttons.
     <div className="wrapper">
-      <h3>{questionsAndAnswers[currentQuestionIndex]?.question}</h3>
+      <h3 dangerouslySetInnerHTML={
+                { __html: questionsAndAnswers[currentQuestionIndex]?.question}
+                }></h3>
       <div className="btn-container">
         {questionsAndAnswers[currentQuestionIndex]?.shuffledAnswers.map(
           (ans, index) => (
