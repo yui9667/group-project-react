@@ -13,6 +13,8 @@ const ShowAnswer = () => {
   const [questionsAndAnswers, setQuestionsAndAnswers] = useState([]);
   // tracks the current question.  it starts at the first question (0)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [answers, setAnswers] = useState([]);
+  // store each answer given by the user
   const [selectedAnswer, setSelectedAnswer] = useState();
 
   useEffect(() => {
@@ -60,9 +62,12 @@ const ShowAnswer = () => {
     // returns the shuffled array
     return array;
   };
+
   //Going to nextQuestions
   function nextQuestion() {
     if (currentQuestionIndex < 9) {
+      setLock(false);
+      setIcon(false);
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else if (currentQuestionIndex === 9) {
       // setIsFinished(1);
@@ -90,6 +95,8 @@ const ShowAnswer = () => {
       console.log("currentQuestionIndex:", currentQuestionIndex);
       console.log("correctAnswer:", correctAnswer);
       console.log(ans);
+      // push and store each answer to answer array
+      answers.push(ans);
       setSelectedAnswer(ans);
     }
   };
@@ -101,7 +108,8 @@ const ShowAnswer = () => {
       <div className="btn-container">
         {questionsAndAnswers[currentQuestionIndex]?.shuffledAnswers.map(
           (ans, index) => (
-            <button key={index} onClick={(e) => checkAnswer(e, ans)}>
+            // when key = index, it only render the 4 options once. but we need to change (re-render) the all elements, so create a unique button using unique key value including #question. This also provides the syle being reset.
+            <button key={currentQuestionIndex + "-" + index} onClick={(e) => checkAnswer(e, ans)}>
               {selectedAnswer === ans && icon === "correct" && (
                 <FontAwesomeIcon
                   icon={faCheck}
@@ -123,7 +131,7 @@ const ShowAnswer = () => {
         )}
 
         <div className="controls">
-          <button className="next-btn">Next Question</button>
+          <button onClick={nextQuestion} className="next-btn">Next Question</button>
         </div>
       </div>
     </div>
