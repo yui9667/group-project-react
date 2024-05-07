@@ -51,26 +51,26 @@ const Questions = () => {
    //    return <LoadingPage />;
    // }
 
-   // a function to shuffle the array with correct and incorrect answers. array = argument.
-   const shuffle = (array) => {
-      // this declares two variables; the length of the array
-      let currentIndex = array.length,
-         randomIndex;
-      //  The while statement creates a loop (araund a code block) that is executed while a condition is true: as long as currentIndex is not zero
-      while (currentIndex != 0) {
-         // Math.random() used with Math.floor() used to pick an return a random index
-         randomIndex = Math.floor(Math.random() * currentIndex);
-         // the decrement --  operator subtracts one from the current variable's value.
-         currentIndex--;
-         // this swaps the element at currentIndex with the element at randomIndex
-         [array[currentIndex], array[randomIndex]] = [
-            array[randomIndex],
-            array[currentIndex],
-         ];
-      }
-      // returns the shuffled array
-      return array;
-   };
+  // a function to shuffle the array with correct and incorrect answers. array = argument.
+  const shuffle = (array) => {
+    // this declares two variables; the length of the array
+    let currentIndex = array.length,
+      randomIndex;
+    //  The while statement creates a loop (araund a code block) that is executed while a condition is true: as long as currentIndex is not zero
+    while (currentIndex != 0) {
+      // Math.random() used with Math.floor() used to pick an return a random index
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      // the decrement --  operator subtracts one from the current variable's value.
+      currentIndex--;
+      // this swaps the element at currentIndex with the element at randomIndex
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+    // returns the shuffled array
+    return array;
+  };
 
    return (
       <div className="App">

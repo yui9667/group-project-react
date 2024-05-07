@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Questions from "./Questions";
+//import Questions from "./Questions";
 import "../styles/intro.css";
 import "../styles/startpage.css";
 
