@@ -1,9 +1,11 @@
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import "../components/showanswer.css";
+import "../styles/questions.css";
 
 const ShowAnswer = () => {
   // const [currentQuestion, setCurrentQuestion] = useState([]);
@@ -13,7 +15,10 @@ const ShowAnswer = () => {
   const [questionsAndAnswers, setQuestionsAndAnswers] = useState([]);
   // tracks the current question.  it starts at the first question (0)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [answers, setAnswers] = useState([]);
+  // store each answer given by the user
   const [selectedAnswer, setSelectedAnswer] = useState();
+
 
   useEffect(() => {
     // use axios to get the data from the TriviaAPI
@@ -60,9 +65,12 @@ const ShowAnswer = () => {
     // returns the shuffled array
     return array;
   };
+
   //Going to nextQuestions
   function nextQuestion() {
     if (currentQuestionIndex < 9) {
+      setLock(false);
+      setIcon(false);
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else if (currentQuestionIndex === 9) {
       // setIsFinished(1);
@@ -90,44 +98,60 @@ const ShowAnswer = () => {
       console.log("currentQuestionIndex:", currentQuestionIndex);
       console.log("correctAnswer:", correctAnswer);
       console.log(ans);
+      // push and store each answer to answer array
+      answers.push(ans);
       setSelectedAnswer(ans);
     }
   };
 
   return (
     //Adding optional chaining so if the {questionsAndAnswers[currentQuestionIndex] is null or undefined, accessing to the question
-    <div className="wrapper">
-      <h3>{questionsAndAnswers[currentQuestionIndex]?.question}</h3>
-      <div className="btn-container">
-        {questionsAndAnswers[currentQuestionIndex]?.shuffledAnswers.map(
-          (ans, index) => (
-            <button key={index} onClick={(e) => checkAnswer(e, ans)}>
-              {selectedAnswer === ans && icon === "correct" && (
-                <FontAwesomeIcon
-                  icon={faCheck}
-                  size="sm"
-                  style={{ color: "#000000", paddingRight: "10px" }}
-                />
-              )}
-              {selectedAnswer === ans && icon === "wrong" && (
-                <FontAwesomeIcon
-                  icon={faXmark}
-                  size="sm"
-                  style={{ color: "#000000", paddingRight: "10px" }}
-                />
-              )}
-              {String.fromCharCode(65 + index) + ". "}
-              {ans}
-            </button>
-          )
-        )}
-
-        <div className="controls">
-          <button className="next-btn">Next Question</button>
-        </div>
+    //Use dangerouslySetInnerHTML for removing special characters in the questions. Because of the code structure of buttons which include children, this feature could not be included in buttons.
+    //Use ternary condition aligning with react.fragment in to let the first question be seen before the button next and to have a link to the result page
+    <React.Fragment>
+    { (questionsAndAnswers.length > 0) ?
+      <div className="wrapper">
+          <h3 dangerouslySetInnerHTML={
+                    { __html: questionsAndAnswers[currentQuestionIndex]?.question}
+                    }></h3>
+          <div className="btn-container">
+            {questionsAndAnswers[currentQuestionIndex]?.shuffledAnswers.map(
+              (ans, index) => (
+                // when key = index, it only render the 4 options once. but we need to change (re-render) the all elements, so create a unique button using unique key value including #question. This also provides the syle being reset.
+                <button key={currentQuestionIndex + "-" + index} onClick={(e) => checkAnswer(e, ans)}>
+                  {selectedAnswer === ans && icon === "correct" && (
+                    <FontAwesomeIcon
+                      icon={faCheck}
+                      size="sm"
+                      style={{ color: "#000000", paddingRight: "10px"}}
+                    />
+                  )}
+                  {selectedAnswer === ans && icon === "wrong" && (
+                    <FontAwesomeIcon
+                      icon={faXmark}
+                      size="sm"
+                      style={{ color: "#000000", paddingRight: "10px"}}
+                    />
+                  )}
+                  {String.fromCharCode(65 + index) + ". "}
+                  {ans}
+                </button>
+              )
+            )
+          }
+            <div className="controls">
+              <button onClick={nextQuestion} className="next-btn">Next Question</button>
+              {
+                // After the last page is completed, 'ResultPage' will be updated considering the given name to move on to the last page.
+                (questionsAndAnswers.length === 9) ? <ResultPage /> : ""
+              }
+            </div>
+          </div>
       </div>
-    </div>
-  );
-};
+      : ""
+    }
+    </React.Fragment>
+  )
+}
 
 export default ShowAnswer;
