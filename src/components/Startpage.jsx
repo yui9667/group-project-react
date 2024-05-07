@@ -31,6 +31,10 @@ function StartPage(welcomeMessage) {
                         <Questions />
                     )
                 }
+                <pattern id="pattern-16" patternUnits="userSpaceOnUse" width="12" height="12">
+                    <path d="M-1,11 l2,2 M11,13 l2,-2" style="stroke: var(--pattern-channel-1, currentcolor)" fill="none" />
+                    <polyline points="0,0 6,6 12,0" style="stroke: var(--pattern-channel-1, currentcolor)" fill="none" />
+                </pattern>
             </div>
         </div>
     )
