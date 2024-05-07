@@ -1,17 +1,20 @@
 //Questions component will be included here.
 
 import axios from "axios";
+import Loading from "react-loading";
 import { useState, useEffect } from "react";
-//import SingleQuestion from "./SingleQuestion";
+import LoadingPage from "./LoadingPage";
 
 const Questions = () => {
    // tracks the current question.  it starts at the first question (0)
    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
    // stores a list of questions and their answers. it starts as an empty array []
    const [questionsAndAnswers, setQuestionsAndAnswers] = useState([]);
+   // this state variable allows us to control whether the loading screen should be displayed
+   const [loading, setLoading] = useState(true);
+   const [error, setError] = useState(null);
 
    useEffect(() => {
-      console.log("here")
       // use axios to get the data from the TriviaAPI
       axios
          .get(
@@ -35,7 +38,18 @@ const Questions = () => {
                }))
             );
          });
+
+      // Simulate loading for 2 seconds (2000 milliseconds) to mimic a time-consuming operation
+      setTimeout(() => {
+         // Loading set to false to signal that the loading operation is complete
+         setLoading(false);
+      }, 2000);
    }, []);
+
+   // check if it's still loading. If not the LoadingPage will be imported with the loading component
+   // if (loading) {
+   //    return <LoadingPage />;
+   // }
 
    // a function to shuffle the array with correct and incorrect answers. array = argument.
    const shuffle = (array) => {
@@ -59,8 +73,12 @@ const Questions = () => {
    };
 
    return (
-      <div></div>
+      <div className="App">
+         {Loading ? <LoadingPage /> : <div> questions will go here</div>}
+      </div>
    );
+
+   //return <div>Questions will be here</div>;
 };
 
 export default Questions;
