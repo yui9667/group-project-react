@@ -5,12 +5,12 @@ import { useState, useEffect } from "react";
 import Questions from "./components/Questions.jsx"
 
 //run function when page loads 
-useEffect ({} => {
+/*useEffect ({} => {
     Questions ()
 
 }, [])
 
-const 
+const */
 
 
 return (

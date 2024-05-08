@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 //import Questions from "./Questions";
+import ShowAnswer from "./ShowAnswer";
 import "../styles/intro.css";
 import "../styles/startpage.css";
 
@@ -28,7 +29,7 @@ function StartPage(welcomeMessage) {
                 }
                 {
                     btnClicked !== null && (
-                        <Questions />
+                        <ShowAnswer />
                     )
                 }
                 <pattern id="pattern-16" patternUnits="userSpaceOnUse" width="12" height="12">
