@@ -66,7 +66,7 @@ const ShowAnswer = () => {
    }, []);
 
    // if something happens during fetch, a error screen will render
-   if (hasError) return <ErrorMessage />;
+   //if (error) return <ErrorMessage />;
 
    // a function to shuffle correct and incorrect answers
    const shuffle = (array) => {
