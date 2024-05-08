@@ -2,7 +2,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import Intro from './components/Intro';
-import StartPage from './components/Startpage.jsx';
+import Startpage from './components/Startpage.jsx';
 import Modal from "./components/Modal.jsx"
 
 
@@ -21,7 +21,7 @@ function App() {
         username.length == 0 ? <Intro setName={setUsername} /> : ""
       }
       {
-        username.length > 0 ? <StartPage /> : ""
+        username.length > 0 ? <Startpage /> : ""
       }
       <Modal />
 
