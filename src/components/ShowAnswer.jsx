@@ -151,7 +151,7 @@ style={{ color: "#000000", paddingRight: "10px" }}
       {loading ? (
         <LoadingPage />
       ) : (
-        <div className="body">
+        <div className="outer">
           <h3 className="currentQuestionTrack">
             Question {currentQuestionIndex + 1} / 10
           </h3>

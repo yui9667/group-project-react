@@ -1,3 +1,10 @@
+/* Since 'body' is a reserved name for an element in coding, outer is preferred as class name in order to prevent a possible complication. */
+.outer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
 .wrapper {
   width: 100%;
   max-width: 700px;
@@ -9,8 +16,11 @@
 }
 
 .currentQuestionTrack {
-  font-size: 20px;
+  font-size: 24px;
+  color: white;
+
 }
+
 .btn-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
