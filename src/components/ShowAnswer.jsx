@@ -7,7 +7,6 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Loading from "react-loading";
 import LoadingPage from "./LoadingPage.jsx";
 import "../components/showanswer.css";
-import "../styles/questions.css";
 
 const ShowAnswer = () => {
   // const [currentQuestion, setCurrentQuestion] = useState([]);
@@ -153,12 +152,13 @@ style={{ color: "#000000", paddingRight: "10px" }}
         <LoadingPage />
       ) : (
         <div className="body">
-          <h2 className="currentQuestionTrack">
+          <h3 className="currentQuestionTrack">
             Question {currentQuestionIndex + 1} / 10
-          </h2>
+          </h3>
           {questionsAndAnswers.length > 0 ? (
             <div className="wrapper">
               <h3
+                className="currentQuestion"
                 dangerouslySetInnerHTML={{
                   __html: questionsAndAnswers[currentQuestionIndex]?.question,
                 }}
@@ -196,15 +196,15 @@ style={{ color: "#000000", paddingRight: "10px" }}
                     </button>
                   )
                 )}
-                <div className="controls">
-                  <button onClick={nextQuestion} className="next-btn">
-                    Next Question
-                  </button>
-                  {
-                    // After the last page is completed, 'ResultPage' will be updated considering the given name to move on to the last page.
-                    questionsAndAnswers.length === 9 ? <ResultPage /> : ""
-                  }
-                </div>
+              </div>
+              <div className="controls">
+                <button onClick={nextQuestion} className="next-btn">
+                  Next Question
+                </button>
+                {
+                  // After the last page is completed, 'ResultPage' will be updated considering the given name to move on to the last page.
+                  questionsAndAnswers.length === 9 ? <ResultPage /> : ""
+                }
               </div>
             </div>
           ) : (
