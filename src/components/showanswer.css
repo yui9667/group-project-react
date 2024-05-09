@@ -38,13 +38,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 10px;
+  padding: 5px;
   font-size: 25px;
   color: #d98b88;
-}
-
-.currentQuestion {
-  margin-top: 7%;
+  margin-top: 2%;
 }
 
 button {
