@@ -25,8 +25,8 @@
 .btn-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 40px;
-  margin: 30px 0;
+  gap: 15px;
+  margin: 20px 0;
   width: 100%;
 }
 
