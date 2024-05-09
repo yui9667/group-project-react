@@ -18,7 +18,8 @@
 .currentQuestionTrack {
   font-size: 24px;
   color: white;
-
+  position: absolute;
+  top: -22%;
 }
 
 .btn-container {
