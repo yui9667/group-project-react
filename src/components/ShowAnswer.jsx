@@ -115,7 +115,7 @@ const ShowAnswer = () => {
         setLock(true);
         setIcon("correct");
       } else {
-        e.target.classList.add("wrong");
+        e.target.classList.add("incorrect");
         setLock(true);
         setIcon("wrong");
         //Showing correct answer when an user press the wrong
@@ -126,11 +126,7 @@ const ShowAnswer = () => {
         if (correctBtn) {
           correctBtn.classList.add("correct");
           correctBtn.innerHTML = `
-            <FontAwesomeIcon
-            icon={faCheck}
-            size="sm"
-            style={{ color: "#000000", paddingRight: "10px" }}
-            />
+       
             <span> ${correctAnswer}</span>
             `;
         }
@@ -161,7 +157,9 @@ const ShowAnswer = () => {
           </h3>
           {questionsAndAnswers.length > 0 ? (
             <div className="wrapper">
-              <h3 className="currentQuestion" dangerouslySetInnerHTML={{
+              <h3
+                className="currentQuestion"
+                dangerouslySetInnerHTML={{
                   __html: questionsAndAnswers[currentQuestionIndex]?.question,
                 }}
               ></h3>
@@ -170,8 +168,10 @@ const ShowAnswer = () => {
                   (ans, index) => (
                     // when key = index, it only render the 4 options once. but we need to change (re-render) the all elements, so create a unique button using unique key value including #question. This also provides the syle being reset.
                     <button
+                      className="options"
                       key={currentQuestionIndex + "-" + index}
                       onClick={(e) => checkAnswer(e, ans)}
+                      data-answer={ans}
                     >
                       {selectedAnswer === ans && icon === "correct" && (
                         <FontAwesomeIcon
@@ -200,7 +200,11 @@ const ShowAnswer = () => {
                 )}
               </div>
               <div className="controls">
-                <button onClick={nextQuestion} disabled={!selectedAnswer} className="next-btn">
+                <button
+                  onClick={nextQuestion}
+                  disabled={!selectedAnswer}
+                  className="next-btn"
+                >
                   Next Question
                 </button>
                 {
