@@ -4,8 +4,8 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-//import Loading from "react-loading";
-//import LoadingPage from "./LoadingPage.jsx";
+import Loading from "react-loading";
+import LoadingPage from "./LoadingPage.jsx";
 import "../components/showanswer.css";
 
 const ShowAnswer = () => {
