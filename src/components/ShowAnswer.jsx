@@ -141,7 +141,18 @@ const ShowAnswer = () => {
       setSelectedAnswer(ans);
     }
   };
-
+  //
+  const removeSpecialLetter = (re) => {
+    const regex = /&#039;|&ouml;|&auml;|&aring;|&iacute;/gi;
+    const removeLetter = {
+      "&#039;": "' ",
+      "&ouml;": "ö",
+      " &auml;": "ä",
+      "&aring;": "å",
+      "&iacute;": "í ",
+    };
+    return re.replaceAll(regex, (match) => removeLetter[match]);
+  };
   return (
     //Adding optional chaining so if the {questionsAndAnswers[currentQuestionIndex] is null or undefined, accessing to the question
     //Use dangerouslySetInnerHTML for removing special characters in the questions. Because of the code structure of buttons which include children, this feature could not be included in buttons.
@@ -194,7 +205,7 @@ const ShowAnswer = () => {
                         />
                       )}
                       {index + 1 + ". "}
-                      {ans}
+                      {removeSpecialLetter(ans)}
                     </button>
                   )
                 )}
