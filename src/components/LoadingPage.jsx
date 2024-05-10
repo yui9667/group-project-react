@@ -1,4 +1,4 @@
-import SpinLoadingPage from "react-loading";
+//import SpinLoadingPage from "react-loading";
 
 function LoadingPage() {
    return (
