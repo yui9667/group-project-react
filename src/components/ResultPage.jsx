@@ -5,13 +5,18 @@ import { useState, useEffect } from "react";
 import Questions from "./components/Questions.jsx"
 
 const Quiz = () => {
-    const [activeQuestion, setActiveQuestion] = useState(0)
     const [selectedAnswer, setSelectedAnswer] = useState('')
     const [showResult, setShowResult] = useState(false)
-    const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null)
+    const [selectedAnswer, selectedAnswer] = useState(null)
 
  
     return (
+        //if showresult is true show results. Otherwise show questions
+        {!showResult ? (
+            <div>
+              <Questions />
+            </div>
+        )}
         <div className="quiz-container">
             <div className="endpage-info">
               <h3>Good job!</h3>
