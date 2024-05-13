@@ -4,6 +4,8 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+// use the function of 'icon' provided by angular-fontawesome library. (But) since we already have a const defined as 'icon' in the 16th line, refer 'icon' in '@fontawesome...-core' as 'fontawesomeIcon' to use it inside the checkAnswer function.
+import { icon as fontawesomeIcon } from "@fortawesome/fontawesome-svg-core";
 import Loading from "react-loading";
 import LoadingPage from "./LoadingPage.jsx";
 import "../components/showanswer.css";
@@ -123,14 +125,21 @@ const ShowAnswer = () => {
           `[data-answer="${correctAnswer}"]`
         );
 
+        console.log(correctBtn);
         if (correctBtn) {
           correctBtn.classList.add("correct");
+          let innerHtml = correctBtn.innerHTML;
+          // console.log(innerHtml)
+          let correctIcon = fontawesomeIcon(faCheck);
+          // correctIcon.styles = "color:rgb(0, 0, 0); padding-right: 10px";
+          // console.log(correctIcon);
+          let iconHtml = correctIcon.html;
+          // console.log(iconHtml)
           correctBtn.innerHTML = `
-       
-            <span> ${correctAnswer}</span>
-            `;
+            ${iconHtml}
+            <span> ${innerHtml}</span>
+          `;
         }
-        console.log(correctBtn);
       }
 
       console.log("currentQuestionIndex:", currentQuestionIndex);
@@ -141,6 +150,7 @@ const ShowAnswer = () => {
       setSelectedAnswer(ans);
     }
   };
+
   //Replace special letters to correct letters
   const removeSpecialLetter = (re) => {
     const regex = /&#039;|&ouml;|&auml;|&aring;|&iacute;/gi;
