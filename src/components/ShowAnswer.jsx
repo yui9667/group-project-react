@@ -7,7 +7,9 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 //import Loading from "react-loading";
 import LoadingPage from "./LoadingPage.jsx";
 import ErrorMessage from "./ErrorMessage.jsx";
+import Modal from "./Modal.jsx";
 import "../components/showanswer.css";
+//import Startpage from "./Startpage.jsx";
 
 const ShowAnswer = () => {
    // const [currentQuestion, setCurrentQuestion] = useState([]);
@@ -23,6 +25,12 @@ const ShowAnswer = () => {
    // this state variable allows us to control whether the loading screen should be displayed
    const [loading, setLoading] = useState(true);
    const [error, setError] = useState(false);
+   const [showModal, setShowModal] = useState(false);
+
+   const toggleModal = () => {
+      console.log("Toggle modal function called");
+      setShowModal(!showModal);
+   };
 
    useEffect(() => {
       // an asynchronous function that doesn't stop the
@@ -162,6 +170,11 @@ const ShowAnswer = () => {
                </h3>
                {questionsAndAnswers.length > 0 ? (
                   <div className="wrapper">
+                     {/* onClick-event to call the toggleModal function */}
+                     <div onClick={toggleModal} className="xmark">
+                        <FontAwesomeIcon icon={faXmark} size="2x" />
+                     </div>
+                     <Modal showModal={showModal} onClose={toggleModal} />
                      <h3
                         className="currentQuestion"
                         dangerouslySetInnerHTML={{
@@ -224,6 +237,7 @@ const ShowAnswer = () => {
                )}
             </div>
          )}
+         {/* <Modal showModal={showModal} onClose={toggleModal} /> */}
       </>
    );
 };
