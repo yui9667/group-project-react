@@ -1,0 +1,62 @@
+.buttons {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 40px;
+    padding-top: 20px;
+}
+
+.close-modal {
+    top: 10px;
+    left: 30px;
+    right: 10px;
+    padding: 5px 7px;
+    width: 226px;
+    height: 62px;
+    border-radius: 8px;
+    border: none;
+    text-align: center;
+	font-family: 'Londrina solid', sans-serif;
+	font-size: 30px;
+	font-weight: 300;
+	letter-spacing: 0.32px;
+    background: #dbe1de;
+    margin-right: 40px;
+}
+
+.close-modal:hover {
+    background: #d2d2d2;
+    cursor: pointer;
+}
+
+.exit-btn {
+    top: 10px;
+    left: 30px;
+    right: 10px;
+    padding: 5px 7px;
+    width: 226px;
+    height: 62px;
+    border-radius: 8px;
+    border: none;
+    text-align: center;
+	font-family: 'Londrina solid', sans-serif;
+	font-size: 30px;
+	font-weight: 300;
+	letter-spacing: 0.32px;
+    background: #E68686;
+    color: #FFFFFF;
+ 
+    }
+  
+    .exit-btn:hover {
+        background: #bc5a5a;
+        cursor: pointer;
+    }
+
+    .endpage-info {
+        text-align: center;
+        font-family: 'Roboto', sans-serif;
+        font-size:40px;
+        font-weight: 300;
+        letter-spacing: 0.32px;
+        width: 440px;
+    }

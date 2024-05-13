@@ -7,6 +7,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Loading from "react-loading";
 import LoadingPage from "./LoadingPage.jsx";
 import "../components/showanswer.css";
+import ResultPage from "./ResultPage.jsx";
 
 const ShowAnswer = () => {
   // const [currentQuestion, setCurrentQuestion] = useState([]);
@@ -231,6 +232,7 @@ const ShowAnswer = () => {
       )}
     </>
   );
+  
 };
 
 export default ShowAnswer;
