@@ -177,6 +177,11 @@ const ShowAnswer = () => {
                </h3>
                {questionsAndAnswers.length > 0 ? (
                   <div className="wrapper">
+                     {/* onClick-event to call the toggleModal function */}
+                     <div onClick={toggleModal} className="xmark">
+                        <FontAwesomeIcon icon={faXmark} size="2x" />
+                     </div>
+                     <Modal showModal={showModal} onClose={toggleModal} />
                      <h3
                         className="currentQuestion"
                         dangerouslySetInnerHTML={{
