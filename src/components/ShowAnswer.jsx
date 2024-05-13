@@ -141,7 +141,7 @@ const ShowAnswer = () => {
       setSelectedAnswer(ans);
     }
   };
-  //
+  //Replace special letters to correct letters
   const removeSpecialLetter = (re) => {
     const regex = /&#039;|&ouml;|&auml;|&aring;|&iacute;/gi;
     const removeLetter = {
