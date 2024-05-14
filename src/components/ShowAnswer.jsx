@@ -2,8 +2,8 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons"; // Importera även ikonen för 'faTimes' eller 'faXmark'
+
 // use the function of 'icon' provided by angular-fontawesome library. (But) since we already have a const defined as 'icon' in the 16th line, refer 'icon' in '@fontawesome...-core' as 'fontawesomeIcon' to use it inside the checkAnswer function.
 import { icon as fontawesomeIcon } from "@fortawesome/fontawesome-svg-core";
 import Loading from "react-loading";
@@ -187,6 +187,11 @@ const ShowAnswer = () => {
                </h3>
                {questionsAndAnswers.length > 0 ? (
                   <div className="wrapper">
+                     {/* onClick-event to call the toggleModal function */}
+                     <div onClick={toggleModal} className="xmark">
+                        <FontAwesomeIcon icon={faXmark} size="2x" />
+                     </div>
+                     <Modal showModal={showModal} onClose={toggleModal} />
                      <h3
                         className="currentQuestion"
                         dangerouslySetInnerHTML={{
