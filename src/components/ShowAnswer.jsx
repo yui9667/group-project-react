@@ -15,11 +15,11 @@ const ShowAnswer = () => {
   // const [currentQuestion, setCurrentQuestion] = useState([]);
   const [lock, setLock] = useState(false);
   const [icon, setIcon] = useState(false);
-  // const [correctAnswer, setCorrectAnswer] = useState("");
+  // store questions not questions and answer!
   const [questionsAndAnswers, setQuestionsAndAnswers] = useState([]);
   // tracks the current question.  it starts at the first question (0)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [answers, setAnswers] = useState([]);
+  const [answers, setAnswers] = useState([1,2,3,4,5,6,7,8,9,10]);
   // store each answer given by the user
   const [selectedAnswer, setSelectedAnswer] = useState("");
   // this state variable allows us to control whether the loading screen should be displayed
@@ -27,7 +27,6 @@ const ShowAnswer = () => {
   const [error, setError] = useState(false);
   const [gameEnded, setGameEnded] = useState(false);
   const [fetchNewQuestions, setFetchNewQuestions] = useState(false);
-
 
   useEffect(() => {
     // an asynchronous function that doesn't stop the
@@ -176,6 +175,8 @@ const ShowAnswer = () => {
     setSelectedAnswer(null); // reset selectedAnswer state
     setIcon(null); // reset icon state
     setQuestionsAndAnswers([]);
+    //set button disable to false
+    setLock(false);
     console.log("Reset the game!");
   }
 
@@ -195,10 +196,8 @@ const ShowAnswer = () => {
     // Add logic here to reset the game (e.g., reset state, start over)
     console.log("Let's try again!")
     resetAnswers();
-    setFetchNewQuestions(!fetchNewQuestions)
-
+    setFetchNewQuestions(!fetchNewQuestions);
   };
-
 
   return (
     //Adding optional chaining so if the {questionsAndAnswers[currentQuestionIndex] is null or undefined, accessing to the question
@@ -268,7 +267,13 @@ const ShowAnswer = () => {
         }
         {
           // After the last page is completed, 'ResultPage' will be updated considering the given name to move on to the last page.
-          answers.length === 10 ? <ResultPage onEndGame={handleEndGame} onTryAgain={handleTryAgain} /> : ""
+          answers.length === 10 ?
+            <ResultPage
+              onEndGame={handleEndGame}
+              questionsAndAnswers={questionsAndAnswers}
+              answers={answers}
+              onTryAgain={handleTryAgain} />
+            : ""
         }
       </div>
     )}
