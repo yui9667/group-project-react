@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons"; // Importera även ikonen för 'faTimes' eller 'faXmark'
 
 const ErrorMessage = () => {
    const [errorMessage, setErrorMessage] = useState(false);
