@@ -4,6 +4,8 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+// use the function of 'icon' provided by angular-fontawesome library. (But) since we already have a const defined as 'icon' in the 16th line, refer 'icon' in '@fontawesome...-core' as 'fontawesomeIcon' to use it inside the checkAnswer function.
+import { icon as fontawesomeIcon } from "@fortawesome/fontawesome-svg-core";
 import Loading from "react-loading";
 import LoadingPage from "./LoadingPage.jsx";
 import "../components/showanswer.css";
@@ -127,126 +129,137 @@ const ShowAnswer = () => {
           `[data-answer="${correctAnswer}"]`
         );
 
+        console.log(correctBtn);
         if (correctBtn) {
           correctBtn.classList.add("correct");
+          let innerHtml = correctBtn.innerHTML;
+          // console.log(innerHtml)
+          let correctIcon = fontawesomeIcon(faCheck);
+          // correctIcon.styles = "color:rgb(0, 0, 0); padding-right: 10px";
+          // console.log(correctIcon);
+          let iconHtml = correctIcon.html;
+          // console.log(iconHtml)
           correctBtn.innerHTML = `
 
-            <span> ${correctAnswer}</span>
-            `;
+            ${iconHtml}
+            <span> ${innerHtml}</span>
+          `;
         }
-
-        console.log("currentQuestionIndex:", currentQuestionIndex);
-        console.log("correctAnswer:", correctAnswer);
-        console.log(ans);
-        // push and store each answer to answer array
-        answers.push(ans);
-        setSelectedAnswer(ans);
       }
+
+      console.log("currentQuestionIndex:", currentQuestionIndex);
+      console.log("correctAnswer:", correctAnswer);
+      console.log(ans);
+      // push and store each answer to answer array
+      answers.push(ans);
+      setSelectedAnswer(ans);
     }
   };
-  // function allIncorrectAnswers(e) {
-  //   const allIncorrectAnswers =
-  //     questions[currentQuestionIndex].incorrectAnswers;
-  //   e.target.classList("incorrect");
-  //   console.log(allIncorrectAnswers);
-  // }
-  // allIncorrectAnswers();
-  //Replace special letters to correct letters
-  const removeSpecialLetter = (re) => {
-    const regex = /&#039;|&ouml;|&auml;|&aring;|&iacute;/gi;
-    const removeLetter = {
-      "&#039;": "' ",
-      "&ouml;": "ö",
-      " &auml;": "ä",
-      "&aring;": "å",
-      "&iacute;": "í ",
-    };
-    return re.replaceAll(regex, (match) => removeLetter[match]);
-  };
-
-  return (
-    //Adding optional chaining so if the {questionsAndAnswers[currentQuestionIndex] is null or undefined, accessing to the question
-    //Use dangerouslySetInnerHTML for removing special characters in the questions. Because of the code structure of buttons which include children, this feature could not be included in buttons.
-    //Use ternary condition aligning with react.fragment in to let the first question be seen before the button next and to have a link to the result page
-    //add disabled={!selectedAnswer} as a first step to let the user go to the next question only if s/he answers the question
-    <>
-      {loading ? (
-        <LoadingPage />
-      ) : (
-        <div className="outer">
-          <h3 className="currentQuestionTrack">
-            Question {currentQuestionIndex + 1} / 10
-          </h3>
-          {questionsAndAnswers.length > 0 ? (
-            <div className="wrapper">
-              <h3
-                className="currentQuestion"
-                dangerouslySetInnerHTML={{
-                  __html: questionsAndAnswers[currentQuestionIndex]?.question,
-                }}
-              ></h3>
-
-              <div className="btn-container">
-                {questionsAndAnswers[currentQuestionIndex]?.shuffledAnswers.map(
-                  (ans, index) => {
-                    // when key = index, it only render the 4 options once. but we need to change (re-render) the all elements, so create a unique button using unique key value including #question. This also provides the style being reset.
-
-                    return (
-                      <button
-                        className="options"
-                        key={currentQuestionIndex + "-" + index}
-                        onClick={(e) => checkAnswer(e, ans)}
-                        ref={correctBtnRef}
-                      >
-                        {selectedAnswer === ans && icon === "correct" && (
-                          <FontAwesomeIcon
-                            icon={faCheck}
-                            size="sm"
-                            style={{
-                              color: "#000000",
-                              paddingRight: "10px",
-                            }}
-                          />
-                        )}
-                        {selectedAnswer === ans && icon === "wrong" && (
-                          <FontAwesomeIcon
-                            icon={faXmark}
-                            size="sm"
-                            style={{
-                              color: "#000000",
-                              paddingRight: "10px",
-                            }}
-                          />
-                        )}
-                        {index + 1 + ". "}
-                        {removeSpecialLetter(ans)}
-                      </button>
-                    );
-                  }
-                )}
-              </div>
-              <div className="controls">
-                <button
-                  onClick={nextQuestion}
-                  disabled={!selectedAnswer}
-                  className="next-btn"
-                >
-                  Next Question
-                </button>
-
-                {
-                  // After the last page is completed, 'ResultPage' will be updated considering the given name to move on to the last page.
-                  questionsAndAnswers.length === 9 ? <ResultPage /> : ""
-                }
-              </div>
-            </div>
-          ) : (
-            ""
-          )}
-        </div>
-      )}
-    </>
-  );
 };
+
+// function allIncorrectAnswers(e) {
+//   const allIncorrectAnswers =
+//     questions[currentQuestionIndex].incorrectAnswers;
+//   e.target.classList("incorrect");
+//   console.log(allIncorrectAnswers);
+// }
+// allIncorrectAnswers();
+
+//Replace special letters to correct letters
+const removeSpecialLetter = (re) => {
+  const regex = /&#039;|&ouml;|&auml;|&aring;|&iacute;/gi;
+  const removeLetter = {
+    "&#039;": "' ",
+    "&ouml;": "ö",
+    " &auml;": "ä",
+    "&aring;": "å",
+    "&iacute;": "í ",
+  };
+  return re.replaceAll(regex, (match) => removeLetter[match]);
+};
+
+return (
+  //Adding optional chaining so if the {questionsAndAnswers[currentQuestionIndex] is null or undefined, accessing to the question
+  //Use dangerouslySetInnerHTML for removing special characters in the questions. Because of the code structure of buttons which include children, this feature could not be included in buttons.
+  //Use ternary condition aligning with react.fragment in to let the first question be seen before the button next and to have a link to the result page
+  //add disabled={!selectedAnswer} as a first step to let the user go to the next question only if s/he answers the question
+  <>
+    {loading ? (
+      <LoadingPage />
+    ) : (
+      <div className="outer">
+        <h3 className="currentQuestionTrack">
+          Question {currentQuestionIndex + 1} / 10
+        </h3>
+        {questionsAndAnswers.length > 0 ? (
+          <div className="wrapper">
+            <h3
+              className="currentQuestion"
+              dangerouslySetInnerHTML={{
+                __html: questionsAndAnswers[currentQuestionIndex]?.question,
+              }}
+            ></h3>
+
+            <div className="btn-container">
+              {questionsAndAnswers[currentQuestionIndex]?.shuffledAnswers.map(
+                (ans, index) => {
+                  // when key = index, it only render the 4 options once. but we need to change (re-render) the all elements, so create a unique button using unique key value including #question. This also provides the style being reset.
+
+                  return (
+                    <button
+                      className="options"
+                      key={currentQuestionIndex + "-" + index}
+                      onClick={(e) => checkAnswer(e, ans)}
+                      ref={correctBtnRef}
+                    >
+                      {selectedAnswer === ans && icon === "correct" && (
+                        <FontAwesomeIcon
+                          icon={faCheck}
+                          size="sm"
+                          style={{
+                            color: "#000000",
+                            paddingRight: "10px",
+                          }}
+                        />
+                      )}
+                      {selectedAnswer === ans && icon === "wrong" && (
+                        <FontAwesomeIcon
+                          icon={faXmark}
+                          size="sm"
+                          style={{
+                            color: "#000000",
+                            paddingRight: "10px",
+                          }}
+                        />
+                      )}
+                      {index + 1 + ". "}
+                      {removeSpecialLetter(ans)}
+                    </button>
+                  );
+                }
+              )}
+            </div>
+            <div className="controls">
+              <button
+                onClick={nextQuestion}
+                disabled={!selectedAnswer}
+                className="next-btn"
+              >
+                Next Question
+              </button>
+
+              {
+                // After the last page is completed, 'ResultPage' will be updated considering the given name to move on to the last page.
+                questionsAndAnswers.length === 9 ? <ResultPage /> : ""
+              }
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
+    )}
+  </>
+);
 
 export default ShowAnswer;
