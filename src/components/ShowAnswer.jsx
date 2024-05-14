@@ -1,5 +1,5 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
+import axios, { all } from "axios";
+import { useState, useEffect, useRef } from "react";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
@@ -9,10 +9,10 @@ import LoadingPage from "./LoadingPage.jsx";
 import "../components/showanswer.css";
 
 const ShowAnswer = () => {
-  // const [currentQuestion, setCurrentQuestion] = useState([]);
+  //an user can choose only one option.
   const [lock, setLock] = useState(false);
+  //Show icon for both correct and incorrect options.
   const [icon, setIcon] = useState(false);
-  // const [correctAnswer, setCorrectAnswer] = useState("");
   const [questionsAndAnswers, setQuestionsAndAnswers] = useState([]);
   // tracks the current question.  it starts at the first question (0)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -36,6 +36,7 @@ const ShowAnswer = () => {
           // takes the fetched data and maps it into a new structure
           const questions = data.results.map((questionObject) => ({
             question: questionObject.question,
+
             // combines correct and incorrect answers and shuffles them using the shuffle function
 
             shuffledAnswers: shuffle([
@@ -44,6 +45,7 @@ const ShowAnswer = () => {
             ]),
             //  stores the correct answer separately.
             correctAnswer: questionObject.correct_answer,
+            incorrectAnswers: questionObject.incorrect_answers,
             // initializes the selected answer to an empty string
             selectedAnswer: "",
           }));
@@ -107,6 +109,8 @@ const ShowAnswer = () => {
   const checkAnswer = (e, ans) => {
     const correctAnswer =
       questionsAndAnswers[currentQuestionIndex].correctAnswer;
+    // let allIncorrectAnswers =
+    //   questionsAndAnswers[currentQuestionIndex].incorrectAnswers;
     //if lock is equal to false, change to true which means then user can select only one option.
     //if correct answer equal to ans, change the color to green, otherwise change to red.
     if (!lock) {
@@ -126,12 +130,10 @@ const ShowAnswer = () => {
         if (correctBtn) {
           correctBtn.classList.add("correct");
           correctBtn.innerHTML = `
-       
+
             <span> ${correctAnswer}</span>
             `;
         }
-        console.log(correctBtn);
-      }
 
       console.log("currentQuestionIndex:", currentQuestionIndex);
       console.log("correctAnswer:", correctAnswer);
@@ -141,6 +143,14 @@ const ShowAnswer = () => {
       setSelectedAnswer(ans);
     }
   };
+
+  // function allIncorrectAnswers(e) {
+  //   const allIncorrectAnswers =
+  //     questions[currentQuestionIndex].incorrectAnswers;
+  //   e.target.classList("incorrect");
+  //   console.log(allIncorrectAnswers);
+  // }
+  // allIncorrectAnswers();
   //Replace special letters to correct letters
   const removeSpecialLetter = (re) => {
     const regex = /&#039;|&ouml;|&auml;|&aring;|&iacute;/gi;
@@ -153,6 +163,7 @@ const ShowAnswer = () => {
     };
     return re.replaceAll(regex, (match) => removeLetter[match]);
   };
+
   return (
     //Adding optional chaining so if the {questionsAndAnswers[currentQuestionIndex] is null or undefined, accessing to the question
     //Use dangerouslySetInnerHTML for removing special characters in the questions. Because of the code structure of buttons which include children, this feature could not be included in buttons.
@@ -174,40 +185,44 @@ const ShowAnswer = () => {
                   __html: questionsAndAnswers[currentQuestionIndex]?.question,
                 }}
               ></h3>
+
               <div className="btn-container">
                 {questionsAndAnswers[currentQuestionIndex]?.shuffledAnswers.map(
-                  (ans, index) => (
-                    // when key = index, it only render the 4 options once. but we need to change (re-render) the all elements, so create a unique button using unique key value including #question. This also provides the syle being reset.
-                    <button
-                      className="options"
-                      key={currentQuestionIndex + "-" + index}
-                      onClick={(e) => checkAnswer(e, ans)}
-                      data-answer={ans}
-                    >
-                      {selectedAnswer === ans && icon === "correct" && (
-                        <FontAwesomeIcon
-                          icon={faCheck}
-                          size="sm"
-                          style={{
-                            color: "#000000",
-                            paddingRight: "10px",
-                          }}
-                        />
-                      )}
-                      {selectedAnswer === ans && icon === "wrong" && (
-                        <FontAwesomeIcon
-                          icon={faXmark}
-                          size="sm"
-                          style={{
-                            color: "#000000",
-                            paddingRight: "10px",
-                          }}
-                        />
-                      )}
-                      {index + 1 + ". "}
-                      {removeSpecialLetter(ans)}
-                    </button>
-                  )
+                  (ans, index) => {
+                    // when key = index, it only render the 4 options once. but we need to change (re-render) the all elements, so create a unique button using unique key value including #question. This also provides the style being reset.
+
+                    return (
+                      <button
+                        className="options"
+                        key={currentQuestionIndex + "-" + index}
+                        onClick={(e) => checkAnswer(e, ans)}
+                        ref={correctBtnRef}
+                      >
+                        {selectedAnswer === ans && icon === "correct" && (
+                          <FontAwesomeIcon
+                            icon={faCheck}
+                            size="sm"
+                            style={{
+                              color: "#000000",
+                              paddingRight: "10px",
+                            }}
+                          />
+                        )}
+                        {selectedAnswer === ans && icon === "wrong" && (
+                          <FontAwesomeIcon
+                            icon={faXmark}
+                            size="sm"
+                            style={{
+                              color: "#000000",
+                              paddingRight: "10px",
+                            }}
+                          />
+                        )}
+                        {index + 1 + ". "}
+                        {removeSpecialLetter(ans)}
+                      </button>
+                    );
+                  }
                 )}
               </div>
               <div className="controls">
@@ -218,6 +233,7 @@ const ShowAnswer = () => {
                 >
                   Next Question
                 </button>
+
                 {
                   // After the last page is completed, 'ResultPage' will be updated considering the given name to move on to the last page.
                   questionsAndAnswers.length === 9 ? <ResultPage /> : ""
