@@ -3,7 +3,7 @@
 //console log the answers
 
 import { useState, useEffect } from "react";
-import Questions from "./components/Questions.jsx"
+import Questions from "../components/Questions.jsx";
 
 const ResultPage = () => {
     const [showResult, setShowResult] = useState(false)
@@ -31,34 +31,32 @@ const ResultPage = () => {
       if (activeQuestion !== questions.length - 1) {
         setActiveQuestion((prev) => prev + 1)
       } else {
-        setActiveQuestion(0)
+        //setActiveQuestion(0)
         setShowResult(true)
       }
     }
 
+    console.log (showResult);
 
-return ( 
-  <>
-  //if showresult is true show results. Otherwise show questions
-  {showResult ? (
-        <Questions />
-    )}
-
-  ) : (
-
-    <div className="quiz-container">
-        <div className="endpage-info">
-          <h3>Good job!</h3>
-        </div>
-        <div>
-            <h3 className="endpage-info">You got a score of <span> {result.correctAnswers} </span> / <span> {questions.length} </span>! </h3>
-            <button onClick={backToMenu} className="close-modal">Exit</button>
-            <button onClick={} className="exit-btn"> Try again </button>
-        </div>
-    </div>
-  )
- </>
-};
+    return ( 
+      <>
+        {showResult ? ( // if showResult is true, show results. Otherwise, show questions 
+          <Questions />
+        ) : (
+          <div className="quiz-container">
+            <div className="endpage-info">
+              <h3>Good job!</h3>
+            </div>
+            <div>
+              <h3 className="endpage-info">You got a score of <span> {result.correctAnswers} </span> / <span> {questions.length} </span>! </h3>
+              <button onClick={backToMenu} className="close-modal">Exit</button>
+              <button onClick={startAgain} className="exit-btn"> Try again </button>
+            </div>
+          </div>
+        )}
+      </>
+    );
+  }
   
 
 
