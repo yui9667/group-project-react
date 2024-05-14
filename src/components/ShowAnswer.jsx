@@ -10,6 +10,7 @@ import Loading from "react-loading";
 import LoadingPage from "./LoadingPage.jsx";
 import ErrorMessage from "./ErrorMessage.jsx";
 import Modal from "./Modal.jsx";
+import "./Modal.css";
 import "../components/showanswer.css";
 //import Startpage from "./Startpage.jsx";
 
