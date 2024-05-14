@@ -4,6 +4,8 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+// use the function of 'icon' provided by angular-fontawesome library. (But) since we already have a const defined as 'icon' in the 16th line, refer 'icon' in '@fontawesome...-core' as 'fontawesomeIcon' to use it inside the checkAnswer function.
+import { icon as fontawesomeIcon } from "@fortawesome/fontawesome-svg-core";
 import Loading from "react-loading";
 import LoadingPage from "./LoadingPage.jsx";
 import "../components/showanswer.css";
@@ -116,7 +118,7 @@ const ShowAnswer = () => {
         setLock(true);
         setIcon("correct");
       } else {
-        e.target.classList.add("wrong");
+        e.target.classList.add("incorrect");
         setLock(true);
         setIcon("wrong");
         //Showing correct answer when an user press the wrong
@@ -124,18 +126,21 @@ const ShowAnswer = () => {
           `[data-answer="${correctAnswer}"]`
         );
 
+        console.log(correctBtn);
         if (correctBtn) {
           correctBtn.classList.add("correct");
+          let innerHtml = correctBtn.innerHTML;
+          // console.log(innerHtml)
+          let correctIcon = fontawesomeIcon(faCheck);
+          // correctIcon.styles = "color:rgb(0, 0, 0); padding-right: 10px";
+          // console.log(correctIcon);
+          let iconHtml = correctIcon.html;
+          // console.log(iconHtml)
           correctBtn.innerHTML = `
-            <FontAwesomeIcon
-            icon={faCheck}
-            size="sm"
-            style={{ color: "#000000", paddingRight: "10px" }}
-            />
-            <span> ${correctAnswer}</span>
-            `;
+            ${iconHtml}
+            <span> ${innerHtml}</span>
+          `;
         }
-        console.log(correctBtn);
       }
 
       console.log("currentQuestionIndex:", currentQuestionIndex);
@@ -147,6 +152,18 @@ const ShowAnswer = () => {
     }
   };
 
+  //Replace special letters to correct letters
+  const removeSpecialLetter = (re) => {
+    const regex = /&#039;|&ouml;|&auml;|&aring;|&iacute;/gi;
+    const removeLetter = {
+      "&#039;": "' ",
+      "&ouml;": "ö",
+      " &auml;": "ä",
+      "&aring;": "å",
+      "&iacute;": "í ",
+    };
+    return re.replaceAll(regex, (match) => removeLetter[match]);
+  };
   return (
     //Adding optional chaining so if the {questionsAndAnswers[currentQuestionIndex] is null or undefined, accessing to the question
     //Use dangerouslySetInnerHTML for removing special characters in the questions. Because of the code structure of buttons which include children, this feature could not be included in buttons.
@@ -162,7 +179,9 @@ const ShowAnswer = () => {
           </h3>
           {questionsAndAnswers.length > 0 ? (
             <div className="wrapper">
-              <h3 className="currentQuestion" dangerouslySetInnerHTML={{
+              <h3
+                className="currentQuestion"
+                dangerouslySetInnerHTML={{
                   __html: questionsAndAnswers[currentQuestionIndex]?.question,
                 }}
               ></h3>
@@ -171,8 +190,10 @@ const ShowAnswer = () => {
                   (ans, index) => (
                     // when key = index, it only render the 4 options once. but we need to change (re-render) the all elements, so create a unique button using unique key value including #question. This also provides the syle being reset.
                     <button
+                      className="options"
                       key={currentQuestionIndex + "-" + index}
                       onClick={(e) => checkAnswer(e, ans)}
+                      data-answer={ans}
                     >
                       {selectedAnswer === ans && icon === "correct" && (
                         <FontAwesomeIcon
@@ -195,13 +216,17 @@ const ShowAnswer = () => {
                         />
                       )}
                       {index + 1 + ". "}
-                      {ans}
+                      {removeSpecialLetter(ans)}
                     </button>
                   )
                 )}
               </div>
               <div className="controls">
-                <button onClick={nextQuestion} disabled={!selectedAnswer} className="next-btn">
+                <button
+                  onClick={nextQuestion}
+                  disabled={!selectedAnswer}
+                  className="next-btn"
+                >
                   Next Question
                 </button>
                 {
