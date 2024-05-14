@@ -114,12 +114,6 @@ body.active-modal {
    cursor: pointer;
 }
 
-.xmark {
-   display: flex;
-   justify-content: flex-end;
-   padding: 10px 20px;
-}
-
 .modal-xmark {
    display: flex;
    align-self: end;
