@@ -135,15 +135,15 @@ const ShowAnswer = () => {
             `;
         }
 
-      console.log("currentQuestionIndex:", currentQuestionIndex);
-      console.log("correctAnswer:", correctAnswer);
-      console.log(ans);
-      // push and store each answer to answer array
-      answers.push(ans);
-      setSelectedAnswer(ans);
+        console.log("currentQuestionIndex:", currentQuestionIndex);
+        console.log("correctAnswer:", correctAnswer);
+        console.log(ans);
+        // push and store each answer to answer array
+        answers.push(ans);
+        setSelectedAnswer(ans);
+      }
     }
   };
-
   // function allIncorrectAnswers(e) {
   //   const allIncorrectAnswers =
   //     questions[currentQuestionIndex].incorrectAnswers;
