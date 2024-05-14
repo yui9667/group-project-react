@@ -1,4 +1,11 @@
 /* Since 'body' is a reserved name for an element in coding, outer is preferred as class name in order to prevent a possible complication. */
+.xmark {
+   width: 100%;
+   display: flex;
+   justify-content: flex-end;
+   padding: 10px 20px;
+}
+
 .outer {
    display: flex;
    position: relative;
