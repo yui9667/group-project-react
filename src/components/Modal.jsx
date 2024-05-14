@@ -48,9 +48,9 @@ export default function Modal() {
                   <div onClick={toggleModal} className="modal-xmark">
                      <FontAwesomeIcon icon={faXmark} size="2x" />
                   </div>
-                  <div onClick={toggleModal} className="modal-xmark">
+                  {/* <div onClick={toggleModal} className="modal-xmark">
                      <FontAwesomeIcon icon={faXmark} size="2x" />
-                  </div>
+                  </div> */}
                   <h3 className="modal-info">
                      Are you sure you want to exit the game? All your answers
                      will be lost.{" "}
