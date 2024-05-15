@@ -9,16 +9,6 @@ import StartPage from "./Startpage";
 /*import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';*/
 
-/*const clicker = () => {
-  setModal(!modal)//! = true to false and false to true
-
-  const genPopup = ()=> {
-        popup = j
-
-  }
-
-  const [modal, setModal] = useState(false);*/
-
 export default function Modal() {
    const [Modal, setModal] = useState(false);
 
@@ -70,35 +60,3 @@ export default function Modal() {
       </>
    );
 }
-
-/*function Example() {
-  const [show, setShow] = useState(false);
-
-  const closePopup = () => setShow(false);
-  const showPopup = () => setShow(true);
-
-  return (
-    <>
-      <Button variant="primary" onClick={showPopup}>
-        Exit
-      </Button>
-
-      <Modal show={show} onHide={closePopup}>
-        <Modal.Header closeButton>
-          <Modal.Title>Are you sure?</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Are you sure you want to exit the game? All your answers will be lost.</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={closePopup}>
-            Yes, exit
-          </Button>
-          <Button variant="primary" onClick={closePopup}>
-            No, go back
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
-  );
-}
-
-export default Example;*/
