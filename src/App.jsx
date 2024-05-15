@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { StrictMode, useEffect, useState } from "react";
 import Intro from "./components/Intro";
 import StartPage from "./components/Startpage.jsx";
 import Modal from "./components/Modal.jsx";
@@ -14,11 +14,13 @@ function App() {
    }, []);
    // dynamic html content
    return (
+      // <StrictMode>
       <div className="App">
          {username.length == 0 ? <Intro setName={setUsername} /> : ""}
          {username.length > 0 ? <StartPage /> : ""}
          <Modal />
       </div>
+      //</StrictMode>
    );
 }
 

@@ -2,21 +2,22 @@ import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons"; // Importera även ikonen för 'faTimes' eller 'faXmark'
+
 // use the function of 'icon' provided by angular-fontawesome library. (But) since we already have a const defined as 'icon' in the 16th line, refer 'icon' in '@fontawesome...-core' as 'fontawesomeIcon' to use it inside the checkAnswer function.
 import { icon as fontawesomeIcon } from "@fortawesome/fontawesome-svg-core";
 import Loading from "react-loading";
 import LoadingPage from "./LoadingPage.jsx";
+import ErrorMessage from "./ErrorMessage.jsx";
+import Modal from "./Modal.jsx";
+import "./Modal.css";
 import "../components/showanswer.css";
 import ResultPage from "./ResultPage.jsx";
 
 const ShowAnswer = () => {
-  //an user can choose only one option.
+  // const [currentQuestion, setCurrentQuestion] = useState([]);
   const [lock, setLock] = useState(false);
-  //Show icon for both correct and incorrect options.
   const [icon, setIcon] = useState(false);
-
   // store questions not questions and answer!
   const [questionsAndAnswers, setQuestionsAndAnswers] = useState([]);
   // tracks the current question.  it starts at the first question (0)
@@ -29,6 +30,14 @@ const ShowAnswer = () => {
   const [error, setError] = useState(false);
   const [gameEnded, setGameEnded] = useState(false);
   const [fetchNewQuestions, setFetchNewQuestions] = useState(false);
+
+  const [showModal, setShowModal] = useState(false);
+
+  // function to call for the Modal to open when click on the Xmark
+  const toggleModal = () => {
+    console.log("Toggle modal function called");
+    setShowModal(!showModal);
+  };
 
   useEffect(() => {
     // an asynchronous function that doesn't stop the
@@ -43,7 +52,6 @@ const ShowAnswer = () => {
           // takes the fetched data and maps it into a new structure
           const questions = data.results.map((questionObject) => ({
             question: questionObject.question,
-
             // combines correct and incorrect answers and shuffles them using the shuffle function
 
             shuffledAnswers: shuffle([
@@ -52,7 +60,6 @@ const ShowAnswer = () => {
             ]),
             //  stores the correct answer separately.
             correctAnswer: questionObject.correct_answer,
-            incorrectAnswers: questionObject.incorrect_answers,
             // initializes the selected answer to an empty string
             selectedAnswer: "",
           }));
@@ -74,7 +81,7 @@ const ShowAnswer = () => {
   }, [fetchNewQuestions]);
 
   // if something happens during fetch, a error screen will render
-  //if (error) return <ErrorMessage />;
+  if (error) return <ErrorMessage />;
 
   // a function to shuffle correct and incorrect answers
   const shuffle = (array) => {
@@ -116,8 +123,6 @@ const ShowAnswer = () => {
   const checkAnswer = (e, ans) => {
     const correctAnswer =
       questionsAndAnswers[currentQuestionIndex].correctAnswer;
-    // let allIncorrectAnswers =
-    //   questionsAndAnswers[currentQuestionIndex].incorrectAnswers;
     //if lock is equal to false, change to true which means then user can select only one option.
     //if correct answer equal to ans, change the color to green, otherwise change to red.
     if (!lock) {
@@ -130,15 +135,6 @@ const ShowAnswer = () => {
         setLock(true);
         setIcon("wrong");
         //Showing correct answer when an user press the wrong
-
-        // let btnRef = useRef(null);
-        // function correctBtnRef() {
-        //   const correctBtn =
-        //     btnRef[questionsAndAnswers.currentQuestionIndex.correctAnswer]
-        //       .current;
-        //   correctBtn.classList.add("correct");
-        // }
-        //Need use useRef because this approach is JavaScript way and not okay to use querySelector and getElementById in React. I am working on it
         const correctBtn = document.querySelector(
           `[data-answer="${correctAnswer}"]`
         );
@@ -154,7 +150,6 @@ const ShowAnswer = () => {
           let iconHtml = correctIcon.html;
           // console.log(iconHtml)
           correctBtn.innerHTML = `
-
             ${iconHtml}
             <span> ${innerHtml}</span>
           `;
@@ -169,6 +164,7 @@ const ShowAnswer = () => {
       setSelectedAnswer(ans);
     }
   };
+
   // function allIncorrectAnswers(e) {
   //   const allIncorrectAnswers =
   //     questions[currentQuestionIndex].incorrectAnswers;
@@ -233,6 +229,10 @@ const ShowAnswer = () => {
         <LoadingPage />
       ) : (
         <div className="outer-cover">
+          {/* onClick-event to call the toggleModal function */}
+          <div onClick={toggleModal} className="xmark">
+            <FontAwesomeIcon icon={faXmark} size="2x" />
+          </div>
           {questionsAndAnswers.length > 0 && answers.length !== 10 ? (
             <div className="outer">
               <h3 className="currentQuestionTrack">
@@ -250,7 +250,6 @@ const ShowAnswer = () => {
                     currentQuestionIndex
                   ]?.shuffledAnswers.map((ans, index) => (
                     // when key = index, it only render the 4 options once. but we need to change (re-render) the all elements, so create a unique button using unique key value including #question. This also provides the syle being reset.
-
                     <button
                       className="options"
                       key={currentQuestionIndex + "-" + index}

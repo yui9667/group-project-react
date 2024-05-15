@@ -5,6 +5,9 @@ import { useState } from "react";
 import "./Modal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+
+import StartPage from "./Startpage";
+
 /*import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';*/
 
@@ -15,9 +18,7 @@ export default function Modal() {
     setModal(!Modal); //! = true to false and false to true
   };
 
-  const backToMenu = () => {
-    console.log("to do back to menu");
-  };
+  const backToMenu = () => <StartPage />;
 
   if (Modal) {
     document.body.classList.add("active-modal");
@@ -36,9 +37,12 @@ export default function Modal() {
         <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>
           <div className="popup-content">
-            <div onClick={toggleModal} className="xmark">
+            <div onClick={toggleModal} className="modal-xmark">
               <FontAwesomeIcon icon={faXmark} size="2x" />
             </div>
+            {/* <div onClick={toggleModal} className="modal-xmark">
+                     <FontAwesomeIcon icon={faXmark} size="2x" />
+                  </div> */}
             <h3 className="modal-info">
               Are you sure you want to exit the game? All your answers will be
               lost.{" "}
