@@ -36,7 +36,6 @@ const ResultPage = () => {
       }
     }
 
-    console.log (showResult);
 
     return ( 
       <>
@@ -49,8 +48,8 @@ const ResultPage = () => {
             </div>
             <div>
               <h3 className="endpage-info">You got a score of <span> {result.correctAnswers} </span> / <span> {questions.length} </span>! </h3>
-              <button onClick={backToMenu} className="close-modal">Exit</button>
-              <button onClick={startAgain} className="exit-btn"> Try again </button>
+              <button onClick={backToMenu} className="close-modal">Exit</button> 
+              <button onClick={handleClick} className="close-modal"> Try again </button> {/* use the start button to trigger a restart button*/}
             </div>
           </div>
         )}
