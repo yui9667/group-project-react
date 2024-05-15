@@ -9,12 +9,15 @@ import { icon as fontawesomeIcon } from "@fortawesome/fontawesome-svg-core";
 import Loading from "react-loading";
 import LoadingPage from "./LoadingPage.jsx";
 import "../components/showanswer.css";
+import ResultPage from "./ResultPage.jsx";
 
 const ShowAnswer = () => {
   //an user can choose only one option.
   const [lock, setLock] = useState(false);
   //Show icon for both correct and incorrect options.
   const [icon, setIcon] = useState(false);
+
+  // store questions not questions and answer!
   const [questionsAndAnswers, setQuestionsAndAnswers] = useState([]);
   // tracks the current question.  it starts at the first question (0)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -24,6 +27,8 @@ const ShowAnswer = () => {
   // this state variable allows us to control whether the loading screen should be displayed
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [gameEnded, setGameEnded] = useState(false);
+  const [fetchNewQuestions, setFetchNewQuestions] = useState(false);
 
   useEffect(() => {
     // an asynchronous function that doesn't stop the
@@ -66,7 +71,7 @@ const ShowAnswer = () => {
         });
     };
     fetchData();
-  }, []);
+  }, [fetchNewQuestions]);
 
   // if something happens during fetch, a error screen will render
   //if (error) return <ErrorMessage />;
@@ -185,85 +190,126 @@ const ShowAnswer = () => {
     return re.replaceAll(regex, (match) => removeLetter[match]);
   };
 
+  const resetAnswers = () => {
+    //Reset the game and start again
+    //Reset the relevant states or set an initial value to them
+    setAnswers([]); // reset the answers state
+    setCurrentQuestionIndex(0); // set currentQuestionIndex state to initial value
+    setSelectedAnswer(null); // reset selectedAnswer state
+    setIcon(null); // reset icon state
+    setQuestionsAndAnswers([]);
+    //set button disable to false
+    setLock(false);
+    console.log("Reset the game!");
+  };
+
+  // define event handler for ending the game
+  const handleEndGame = () => {
+    // Add logic here to end the game (e.g., reset state, show final results)
+    setGameEnded(true);
+    // Add logic here to end the game (e.g., reset state, show final results)
+    // You can set state to render ResultPage
+    console.log("Bye!");
+  };
+
+  // Define event handler for trying again
+  const handleTryAgain = () => {
+    // Add logic here to reset the game (e.g., reset state, start over)
+    setGameEnded(false);
+    // Add logic here to reset the game (e.g., reset state, start over)
+    console.log("Let's try again!");
+    resetAnswers();
+    setFetchNewQuestions(!fetchNewQuestions);
+  };
+
   return (
     //Adding optional chaining so if the {questionsAndAnswers[currentQuestionIndex] is null or undefined, accessing to the question
     //Use dangerouslySetInnerHTML for removing special characters in the questions. Because of the code structure of buttons which include children, this feature could not be included in buttons.
     //Use ternary condition aligning with react.fragment in to let the first question be seen before the button next and to have a link to the result page
     //add disabled={!selectedAnswer} as a first step to let the user go to the next question only if s/he answers the question
+    //add handleEndGame and handleTryAgain to use the functions with the help of relevant props in the resultpage.
     <>
       {loading ? (
         <LoadingPage />
       ) : (
-        <div className="outer">
-          <h3 className="currentQuestionTrack">
-            Question {currentQuestionIndex + 1} / 10
-          </h3>
-          {questionsAndAnswers.length > 0 ? (
-            <div className="wrapper">
-              <h3
-                className="currentQuestion"
-                dangerouslySetInnerHTML={{
-                  __html: questionsAndAnswers[currentQuestionIndex]?.question,
-                }}
-              ></h3>
+        <div className="outer-cover">
+          {questionsAndAnswers.length > 0 && answers.length !== 10 ? (
+            <div className="outer">
+              <h3 className="currentQuestionTrack">
+                Question {currentQuestionIndex + 1} / 10
+              </h3>
+              <div className="wrapper">
+                <h3
+                  className="currentQuestion"
+                  dangerouslySetInnerHTML={{
+                    __html: questionsAndAnswers[currentQuestionIndex]?.question,
+                  }}
+                ></h3>
+                <div className="btn-container">
+                  {questionsAndAnswers[
+                    currentQuestionIndex
+                  ]?.shuffledAnswers.map((ans, index) => (
+                    // when key = index, it only render the 4 options once. but we need to change (re-render) the all elements, so create a unique button using unique key value including #question. This also provides the syle being reset.
 
-              <div className="btn-container">
-                {questionsAndAnswers[currentQuestionIndex]?.shuffledAnswers.map(
-                  (ans, index) => {
-                    // when key = index, it only render the 4 options once. but we need to change (re-render) the all elements, so create a unique button using unique key value including #question. This also provides the style being reset.
-
-                    return (
-                      <button
-                        className="options"
-                        key={currentQuestionIndex + "-" + index}
-                        onClick={(e) => checkAnswer(e, ans)}
-                        data-answer={ans}
-                      >
-                        {selectedAnswer === ans && icon === "correct" && (
-                          <FontAwesomeIcon
-                            icon={faCheck}
-                            size="sm"
-                            style={{
-                              color: "#000000",
-                              paddingRight: "10px",
-                            }}
-                          />
-                        )}
-                        {selectedAnswer === ans && icon === "wrong" && (
-                          <FontAwesomeIcon
-                            icon={faXmark}
-                            size="sm"
-                            style={{
-                              color: "#000000",
-                              paddingRight: "10px",
-                            }}
-                          />
-                        )}
-                        {index + 1 + ". "}
-                        {removeSpecialLetter(ans)}
-                      </button>
-                    );
-                  }
-                )}
-              </div>
-              <div className="controls">
-                <button
-                  onClick={nextQuestion}
-                  disabled={!selectedAnswer}
-                  className="next-btn"
-                >
-                  Next Question
-                </button>
-
-                {
-                  // After the last page is completed, 'ResultPage' will be updated considering the given name to move on to the last page.
-                  questionsAndAnswers.length === 9 ? <ResultPage /> : ""
-                }
+                    <button
+                      className="options"
+                      key={currentQuestionIndex + "-" + index}
+                      onClick={(e) => checkAnswer(e, ans)}
+                      data-answer={ans}
+                    >
+                      {selectedAnswer === ans && icon === "correct" && (
+                        <FontAwesomeIcon
+                          icon={faCheck}
+                          size="sm"
+                          style={{
+                            color: "#000000",
+                            paddingRight: "10px",
+                          }}
+                        />
+                      )}
+                      {selectedAnswer === ans && icon === "wrong" && (
+                        <FontAwesomeIcon
+                          icon={faXmark}
+                          size="sm"
+                          style={{
+                            color: "#000000",
+                            paddingRight: "10px",
+                          }}
+                        />
+                      )}
+                      {index + 1 + ". "}
+                      {removeSpecialLetter(ans)}
+                    </button>
+                  ))}
+                </div>
+                <div className="controls">
+                  <button
+                    onClick={nextQuestion}
+                    disabled={!selectedAnswer}
+                    className="next-btn"
+                  >
+                    {" "}
+                    Next Question{" "}
+                  </button>
+                </div>
               </div>
             </div>
           ) : (
             ""
           )}
+          {
+            // After the last page is completed, 'ResultPage' will be updated considering the given name to move on to the last page.
+            answers.length === 10 ? (
+              <ResultPage
+                onEndGame={handleEndGame}
+                questionsAndAnswers={questionsAndAnswers}
+                answers={answers}
+                onTryAgain={handleTryAgain}
+              />
+            ) : (
+              ""
+            )
+          }
         </div>
       )}
     </>
