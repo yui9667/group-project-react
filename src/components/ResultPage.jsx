@@ -8,7 +8,6 @@
 
 import { useState, useEffect } from "react";
 import "../styles/resultpage.css";
-import "./Modal.css";
 
 const calculateScore = (questionsAndAnswers, answers) => {
     let score = 0;
