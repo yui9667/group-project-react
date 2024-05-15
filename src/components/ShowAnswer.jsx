@@ -19,7 +19,7 @@ const ShowAnswer = () => {
   const [questionsAndAnswers, setQuestionsAndAnswers] = useState([]);
   // tracks the current question.  it starts at the first question (0)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [answers, setAnswers] = useState([1,2,3,4,5,6,7,8,9,10]);
+  const [answers, setAnswers] = useState([]);
   // store each answer given by the user
   const [selectedAnswer, setSelectedAnswer] = useState("");
   // this state variable allows us to control whether the loading screen should be displayed
