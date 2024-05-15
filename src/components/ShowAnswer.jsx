@@ -1,4 +1,4 @@
-import axios, { all } from "axios";
+import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -125,6 +125,15 @@ const ShowAnswer = () => {
         setLock(true);
         setIcon("wrong");
         //Showing correct answer when an user press the wrong
+
+        // let btnRef = useRef(null);
+        // function correctBtnRef() {
+        //   const correctBtn =
+        //     btnRef[questionsAndAnswers.currentQuestionIndex.correctAnswer]
+        //       .current;
+        //   correctBtn.classList.add("correct");
+        // }
+        //Need use useRef because this approach is JavaScript way and not okay to use querySelector and getElementById in React. I am working on it
         const correctBtn = document.querySelector(
           `[data-answer="${correctAnswer}"]`
         );
@@ -155,111 +164,109 @@ const ShowAnswer = () => {
       setSelectedAnswer(ans);
     }
   };
-};
+  // function allIncorrectAnswers(e) {
+  //   const allIncorrectAnswers =
+  //     questions[currentQuestionIndex].incorrectAnswers;
+  //   e.target.classList("incorrect");
+  //   console.log(allIncorrectAnswers);
+  // }
+  // allIncorrectAnswers();
 
-// function allIncorrectAnswers(e) {
-//   const allIncorrectAnswers =
-//     questions[currentQuestionIndex].incorrectAnswers;
-//   e.target.classList("incorrect");
-//   console.log(allIncorrectAnswers);
-// }
-// allIncorrectAnswers();
-
-//Replace special letters to correct letters
-const removeSpecialLetter = (re) => {
-  const regex = /&#039;|&ouml;|&auml;|&aring;|&iacute;/gi;
-  const removeLetter = {
-    "&#039;": "' ",
-    "&ouml;": "ö",
-    " &auml;": "ä",
-    "&aring;": "å",
-    "&iacute;": "í ",
+  //Replace special letters to correct letters
+  const removeSpecialLetter = (re) => {
+    const regex = /&#039;|&ouml;|&auml;|&aring;|&iacute;/gi;
+    const removeLetter = {
+      "&#039;": "' ",
+      "&ouml;": "ö",
+      " &auml;": "ä",
+      "&aring;": "å",
+      "&iacute;": "í ",
+    };
+    return re.replaceAll(regex, (match) => removeLetter[match]);
   };
-  return re.replaceAll(regex, (match) => removeLetter[match]);
-};
 
-return (
-  //Adding optional chaining so if the {questionsAndAnswers[currentQuestionIndex] is null or undefined, accessing to the question
-  //Use dangerouslySetInnerHTML for removing special characters in the questions. Because of the code structure of buttons which include children, this feature could not be included in buttons.
-  //Use ternary condition aligning with react.fragment in to let the first question be seen before the button next and to have a link to the result page
-  //add disabled={!selectedAnswer} as a first step to let the user go to the next question only if s/he answers the question
-  <>
-    {loading ? (
-      <LoadingPage />
-    ) : (
-      <div className="outer">
-        <h3 className="currentQuestionTrack">
-          Question {currentQuestionIndex + 1} / 10
-        </h3>
-        {questionsAndAnswers.length > 0 ? (
-          <div className="wrapper">
-            <h3
-              className="currentQuestion"
-              dangerouslySetInnerHTML={{
-                __html: questionsAndAnswers[currentQuestionIndex]?.question,
-              }}
-            ></h3>
+  return (
+    //Adding optional chaining so if the {questionsAndAnswers[currentQuestionIndex] is null or undefined, accessing to the question
+    //Use dangerouslySetInnerHTML for removing special characters in the questions. Because of the code structure of buttons which include children, this feature could not be included in buttons.
+    //Use ternary condition aligning with react.fragment in to let the first question be seen before the button next and to have a link to the result page
+    //add disabled={!selectedAnswer} as a first step to let the user go to the next question only if s/he answers the question
+    <>
+      {loading ? (
+        <LoadingPage />
+      ) : (
+        <div className="outer">
+          <h3 className="currentQuestionTrack">
+            Question {currentQuestionIndex + 1} / 10
+          </h3>
+          {questionsAndAnswers.length > 0 ? (
+            <div className="wrapper">
+              <h3
+                className="currentQuestion"
+                dangerouslySetInnerHTML={{
+                  __html: questionsAndAnswers[currentQuestionIndex]?.question,
+                }}
+              ></h3>
 
-            <div className="btn-container">
-              {questionsAndAnswers[currentQuestionIndex]?.shuffledAnswers.map(
-                (ans, index) => {
-                  // when key = index, it only render the 4 options once. but we need to change (re-render) the all elements, so create a unique button using unique key value including #question. This also provides the style being reset.
+              <div className="btn-container">
+                {questionsAndAnswers[currentQuestionIndex]?.shuffledAnswers.map(
+                  (ans, index) => {
+                    // when key = index, it only render the 4 options once. but we need to change (re-render) the all elements, so create a unique button using unique key value including #question. This also provides the style being reset.
 
-                  return (
-                    <button
-                      className="options"
-                      key={currentQuestionIndex + "-" + index}
-                      onClick={(e) => checkAnswer(e, ans)}
-                      ref={correctBtnRef}
-                    >
-                      {selectedAnswer === ans && icon === "correct" && (
-                        <FontAwesomeIcon
-                          icon={faCheck}
-                          size="sm"
-                          style={{
-                            color: "#000000",
-                            paddingRight: "10px",
-                          }}
-                        />
-                      )}
-                      {selectedAnswer === ans && icon === "wrong" && (
-                        <FontAwesomeIcon
-                          icon={faXmark}
-                          size="sm"
-                          style={{
-                            color: "#000000",
-                            paddingRight: "10px",
-                          }}
-                        />
-                      )}
-                      {index + 1 + ". "}
-                      {removeSpecialLetter(ans)}
-                    </button>
-                  );
+                    return (
+                      <button
+                        className="options"
+                        key={currentQuestionIndex + "-" + index}
+                        onClick={(e) => checkAnswer(e, ans)}
+                        data-answer={ans}
+                      >
+                        {selectedAnswer === ans && icon === "correct" && (
+                          <FontAwesomeIcon
+                            icon={faCheck}
+                            size="sm"
+                            style={{
+                              color: "#000000",
+                              paddingRight: "10px",
+                            }}
+                          />
+                        )}
+                        {selectedAnswer === ans && icon === "wrong" && (
+                          <FontAwesomeIcon
+                            icon={faXmark}
+                            size="sm"
+                            style={{
+                              color: "#000000",
+                              paddingRight: "10px",
+                            }}
+                          />
+                        )}
+                        {index + 1 + ". "}
+                        {removeSpecialLetter(ans)}
+                      </button>
+                    );
+                  }
+                )}
+              </div>
+              <div className="controls">
+                <button
+                  onClick={nextQuestion}
+                  disabled={!selectedAnswer}
+                  className="next-btn"
+                >
+                  Next Question
+                </button>
+
+                {
+                  // After the last page is completed, 'ResultPage' will be updated considering the given name to move on to the last page.
+                  questionsAndAnswers.length === 9 ? <ResultPage /> : ""
                 }
-              )}
+              </div>
             </div>
-            <div className="controls">
-              <button
-                onClick={nextQuestion}
-                disabled={!selectedAnswer}
-                className="next-btn"
-              >
-                Next Question
-              </button>
-
-              {
-                // After the last page is completed, 'ResultPage' will be updated considering the given name to move on to the last page.
-                questionsAndAnswers.length === 9 ? <ResultPage /> : ""
-              }
-            </div>
-          </div>
-        ) : (
-          ""
-        )}
-      </div>
-    )}
-  </>
-);
-
+          ) : (
+            ""
+          )}
+        </div>
+      )}
+    </>
+  );
+};
 export default ShowAnswer;
