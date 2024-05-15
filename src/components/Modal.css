@@ -118,6 +118,7 @@ body.active-modal {
    display: flex;
    align-self: end;
    padding-right: 40px;
+   position: absolute;
 }
 
 /* .xmark {
