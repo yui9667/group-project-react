@@ -16,7 +16,7 @@ function App() {
    return (
       <div className="App">
          {username.length == 0 ? <Intro setName={setUsername} /> : ""}
-         {username.length > 0 ? <StartPage /> : ""}
+         {username.length > 0 ? <StartPage username={username} /> : ""}
          <Modal />
       </div>
    );

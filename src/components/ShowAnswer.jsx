@@ -11,7 +11,7 @@ import LoadingPage from "./LoadingPage.jsx";
 import "../components/showanswer.css";
 import ResultPage from "./ResultPage.jsx";
 
-const ShowAnswer = () => {
+const ShowAnswer = ({ username }) => {
   // const [currentQuestion, setCurrentQuestion] = useState([]);
   const [lock, setLock] = useState(false);
   const [icon, setIcon] = useState(false);
@@ -272,6 +272,7 @@ const ShowAnswer = () => {
               onEndGame={handleEndGame}
               questionsAndAnswers={questionsAndAnswers}
               answers={answers}
+              username={username}
               onTryAgain={handleTryAgain} />
             : ""
         }
