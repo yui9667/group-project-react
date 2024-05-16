@@ -135,6 +135,7 @@ const ShowAnswer = ({ username }) => {
         setLock(true);
         setIcon("wrong");
         //Showing correct answer when an user press the wrong
+
         const correctBtn = document.querySelector(
           `[data-answer="${correctAnswer}"]`
         );
@@ -222,9 +223,13 @@ const ShowAnswer = ({ username }) => {
       ) : (
         <div className="outer-cover">
           {/* onClick-event to call the toggleModal function */}
-          <div onClick={toggleModal} className="xmark">
-            <FontAwesomeIcon icon={faXmark} size="2x" />
-          </div>
+          {answers.length !== 10 ? (
+            <div onClick={toggleModal} className="xmark">
+              <FontAwesomeIcon icon={faXmark} size="2x" />
+            </div>
+          ) : (
+            ""
+          )}
           {showModal ? <Modal /> : null}
           {questionsAndAnswers.length > 0 && answers.length !== 10 ? (
             <div className="outer">

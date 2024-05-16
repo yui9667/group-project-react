@@ -44,20 +44,22 @@ function ResultPage(props) {
 
   return (
     <div className={ResultPageCSS.container}>
-      <div className="endpage-initial">
+      <div className={ResultPageCSS.endpageInitial}>
         <h3>Good job!</h3>
       </div>
-      <div className="endpage-info" onClick={props.onPress}>
-        <h3>
+      <div className={ResultPageCSS.endpageInfo} onClick={props.onPress}>
+        <h4>
           {props.username}, you got a score of {score} out of{" "}
           {props.questionsAndAnswers.length}!
-        </h3>
-        <button onClick={props.onEndGame} className="close-modal">
-          End game
-        </button>
-        <button onClick={props.onTryAgain} className="exit-btn">
-          Try again
-        </button>
+        </h4>
+        <div className={ResultPageCSS.btnContainer}>
+          <button onClick={props.onEndGame} className="close-modal btn-modal">
+            End game
+          </button>
+          <button onClick={props.onTryAgain} className="exit-btn btn-modal">
+            Try again
+          </button>
+        </div>
       </div>
     </div>
   );

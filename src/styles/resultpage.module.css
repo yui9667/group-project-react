@@ -1,62 +1,30 @@
-.endpage-initial {
-  text-align: center;
-  font-family: "Roboto", sans-serif;
-  font-size: 40px;
-  font-weight: 300;
+/*Used module for css, so background image won't cover white container
+
+*/
+
+.endpageInitial {
   letter-spacing: 0.32px;
-  width: 440px;
-  margin: 5px;
+  width: 100%;
+  margin: 10px;
 }
 
-.endpage-initial h3 {
-  margin: 0 0 4% 0;
-  font-size: 110px;
+.endpageInitial h3 {
+  font-size: 90px;
   color: #d3807d;
   font-weight: 800;
   font-family: "Londrina Solid", sans-serif;
   letter-spacing: 2px;
 }
 
-.endpage-info {
-  font-size: 40px;
-  margin-bottom: 0;
-}
-
-.endpage-info h3 {
-  font-size: 40px;
+.endpageInfo h4 {
+  font-size: 23px;
   margin: 0;
 }
 
-.close-modal,
-.exit-btn {
-  top: 10px;
-  left: 30px;
-  right: 10px;
-  padding: 5px 7px;
-  width: 226px;
-  height: 62px;
-  border-radius: 8px;
-  border: none;
-  text-align: center;
-  font-family: "Londrina solid", sans-serif;
-  font-size: 30px;
-  font-weight: 300;
-  letter-spacing: 0.32px;
-  background: #dbe1de;
-  margin-right: 40px;
+.btnContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 20px;
 }
-
-.close-modal:hover {
-  background: #d2d2d2;
-  cursor: pointer;
-}
-
-.exit-btn {
-  background: #e68686;
-  color: #ffffff;
-}
-
-.exit-btn:hover {
-  background: #bc5a5a;
-  cursor: pointer;
-}
+/*Delete exit-btn and close-btn because we get the same codes from modal.css*/

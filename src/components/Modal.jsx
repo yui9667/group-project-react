@@ -36,10 +36,10 @@ export default function Modal() {
               lost.{" "}
             </h3>
             <div className="buttons">
-              <button onClick={toggleModal} className="close-modal">
+              <button onClick={toggleModal} className="close-modal btn-modal">
                 No, go back
               </button>
-              <button onClick={backToMenu} className="exit-btn">
+              <button onClick={backToMenu} className="exit-btn btn-modal">
                 {" "}
                 Yes, exit
               </button>
