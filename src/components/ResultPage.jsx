@@ -32,11 +32,6 @@ const calculateScore = (questionsAndAnswers, answers) => {
 
 
 function ResultPage (props) {
-    // console.log(props.questionsAndAnswers);
-    // console.log(props.answers);
-
-    // console.log(typeof props.questionsAndAnswers);
-    // console.log(typeof props.answers);
 
     // Calculate the score
     const [score, setScore] = useState([0]);
@@ -51,7 +46,7 @@ function ResultPage (props) {
                 <h3>Good job!</h3>
             </div>
             <div className="endpage-info" onClick={props.onPress}>
-                <h3>You got a score of {score} out of {props.questionsAndAnswers.length}!</h3>
+                <h3>{props.username}, you got a score of {score} out of {props.questionsAndAnswers.length}!</h3>
                 <button onClick={props.onEndGame} className="close-modal">End game</button>
                 <button onClick={props.onTryAgain} className="exit-btn">Try again</button>
             </div>

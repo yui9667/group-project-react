@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons"; // Importera även ikonen för 'faTimes' eller 'faXmark'
-
 // use the function of 'icon' provided by angular-fontawesome library. (But) since we already have a const defined as 'icon' in the 16th line, refer 'icon' in '@fontawesome...-core' as 'fontawesomeIcon' to use it inside the checkAnswer function.
 import { icon as fontawesomeIcon } from "@fortawesome/fontawesome-svg-core";
 import Loading from "react-loading";
@@ -14,22 +13,23 @@ import "./Modal.css";
 import "../components/showanswer.css";
 import ResultPage from "./ResultPage.jsx";
 
-const ShowAnswer = () => {
-   // const [currentQuestion, setCurrentQuestion] = useState([]);
-   const [lock, setLock] = useState(false);
-   const [icon, setIcon] = useState(false);
-   // store questions not questions and answer!
-   const [questionsAndAnswers, setQuestionsAndAnswers] = useState([]);
-   // tracks the current question.  it starts at the first question (0)
-   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-   const [answers, setAnswers] = useState([]);
-   // store each answer given by the user
-   const [selectedAnswer, setSelectedAnswer] = useState("");
-   // this state variable allows us to control whether the loading screen should be displayed
-   const [loading, setLoading] = useState(true);
-   const [error, setError] = useState(false);
-   const [gameEnded, setGameEnded] = useState(false);
-   const [fetchNewQuestions, setFetchNewQuestions] = useState(false);
+const ShowAnswer = ({ username }) => {
+  // const [currentQuestion, setCurrentQuestion] = useState([]);
+  const [lock, setLock] = useState(false);
+  const [icon, setIcon] = useState(false);
+  // store questions not questions and answer!
+  const [questionsAndAnswers, setQuestionsAndAnswers] = useState([]);
+  // tracks the current question.  it starts at the first question (0)
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [answers, setAnswers] = useState([]);
+  // store each answer given by the user
+  const [selectedAnswer, setSelectedAnswer] = useState("");
+  // this state variable allows us to control whether the loading screen should be displayed
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [gameEnded, setGameEnded] = useState(false);
+  const [fetchNewQuestions, setFetchNewQuestions] = useState(false);
+
 
    const [showModal, setShowModal] = useState(false);
 
@@ -234,78 +234,67 @@ const ShowAnswer = () => {
                         <h3
                            className="currentQuestion"
                            dangerouslySetInnerHTML={{
-                              __html:
-                                 questionsAndAnswers[currentQuestionIndex]
-                                    ?.question,
-                           }}></h3>
+                              __html: questionsAndAnswers[currentQuestionIndex]?.question,
+                           }}
+                        ></h3>
                         <div className="btn-container">
-                           {questionsAndAnswers[
-                              currentQuestionIndex
-                           ]?.shuffledAnswers.map((ans, index) => (
+                           {questionsAndAnswers[currentQuestionIndex]?.shuffledAnswers.map((ans, index) => (
                               // when key = index, it only render the 4 options once. but we need to change (re-render) the all elements, so create a unique button using unique key value including #question. This also provides the syle being reset.
                               <button
                                  className="options"
                                  key={currentQuestionIndex + "-" + index}
                                  onClick={(e) => checkAnswer(e, ans)}
                                  data-answer={ans}>
-                                 {selectedAnswer === ans &&
-                                    icon === "correct" && (
-                                       <FontAwesomeIcon
-                                          icon={faCheck}
-                                          size="sm"
-                                          style={{
-                                             color: "#000000",
-                                             paddingRight: "10px",
-                                          }}
-                                       />
-                                    )}
-                                 {selectedAnswer === ans &&
-                                    icon === "wrong" && (
-                                       <FontAwesomeIcon
-                                          icon={faXmark}
-                                          size="sm"
-                                          style={{
-                                             color: "#000000",
-                                             paddingRight: "10px",
-                                          }}
-                                       />
-                                    )}
+                                 {selectedAnswer === ans && icon === "correct" && (
+                                    <FontAwesomeIcon
+                                       icon={faCheck}
+                                       size="sm"
+                                       style={{
+                                          color: "#000000",
+                                          paddingRight: "10px",
+                                       }}
+                                    />
+                                 )}
+                                 {selectedAnswer === ans && icon === "wrong" && (
+                                    <FontAwesomeIcon
+                                       icon={faXmark}
+                                       size="sm"
+                                       style={{
+                                          color: "#000000",
+                                          paddingRight: "10px",
+                                       }}
+                                    />
+                                 )}
                                  {index + 1 + ". "}
                                  {removeSpecialLetter(ans)}
                               </button>
                            ))}
                         </div>
                         <div className="controls">
-                           <button
-                              onClick={nextQuestion}
-                              disabled={!selectedAnswer}
-                              className="next-btn">
+                           <button onClick={nextQuestion} disabled={!selectedAnswer} className="next-btn">
                               {" "}
                               Next Question{" "}
                            </button>
                         </div>
                      </div>
                   </div>
-               ) : (
-                  ""
-               )}
-               {
-                  // After the last page is completed, 'ResultPage' will be updated considering the given name to move on to the last page.
-                  answers.length === 10 ? (
-                     <ResultPage
-                        onEndGame={handleEndGame}
-                        questionsAndAnswers={questionsAndAnswers}
-                        answers={answers}
-                        onTryAgain={handleTryAgain}
-                     />
-                  ) : (
-                     ""
-                  )
+                  ) : ""
                }
+               {
+               // After the last page is completed, 'ResultPage' will be updated considering the given name to move on to the last page.
+               answers.length === 10 ?
+                  <ResultPage
+                  onEndGame={handleEndGame}
+                  questionsAndAnswers={questionsAndAnswers}
+                  answers={answers}
+                  username={username}
+                  onTryAgain={handleTryAgain} />
+               : ""
+            }
             </div>
          )}
       </>
-   );
+   )
 };
 
 export default ShowAnswer;
