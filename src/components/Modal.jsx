@@ -83,7 +83,9 @@ export default function Modal() {
  
 return (
     <>
-
+    <div onClick={toggleModal} className="xmark">
+      <FontAwesomeIcon icon={faXmark} size="2x" />
+    </div> 
     {Modal && (
        <div className="modal">
         <div onClick={toggleModal} className="overlay"></div>
