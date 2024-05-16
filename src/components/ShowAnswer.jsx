@@ -3,7 +3,6 @@ import { useState, useEffect, useRef } from "react";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons"; // Importera även ikonen för 'faTimes' eller 'faXmark'
-
 // use the function of 'icon' provided by angular-fontawesome library. (But) since we already have a const defined as 'icon' in the 16th line, refer 'icon' in '@fontawesome...-core' as 'fontawesomeIcon' to use it inside the checkAnswer function.
 import { icon as fontawesomeIcon } from "@fortawesome/fontawesome-svg-core";
 import Loading from "react-loading";
@@ -14,7 +13,7 @@ import "./Modal.css";
 import "../components/showanswer.css";
 import ResultPage from "./ResultPage.jsx";
 
-const ShowAnswer = () => {
+const ShowAnswer = ({ username }) => {
   // const [currentQuestion, setCurrentQuestion] = useState([]);
   const [lock, setLock] = useState(false);
   const [icon, setIcon] = useState(false);
@@ -303,6 +302,7 @@ const ShowAnswer = () => {
                 onEndGame={handleEndGame}
                 questionsAndAnswers={questionsAndAnswers}
                 answers={answers}
+                username={username}
                 onTryAgain={handleTryAgain}
               />
             ) : (
