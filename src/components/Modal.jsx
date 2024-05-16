@@ -2,7 +2,7 @@
 //trycker användaren på exit så kommer man tillbaka till menyn
 //trycker man på go back så återgår man till spelet och där man var
 import { useState } from "react";
-import "./Modal.css";
+import "../styles/Modal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 

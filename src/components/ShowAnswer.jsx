@@ -9,8 +9,8 @@ import Loading from "react-loading";
 import LoadingPage from "./LoadingPage.jsx";
 import ErrorMessage from "./ErrorMessage.jsx";
 import Modal from "./Modal.jsx";
-import "./Modal.css";
-import "../components/showanswer.css";
+import "../styles/Modal.css";
+import "../styles/showanswer.css";
 import ResultPage from "./ResultPage.jsx";
 
 const ShowAnswer = ({ username }) => {
@@ -163,14 +163,6 @@ const ShowAnswer = ({ username }) => {
       setSelectedAnswer(ans);
     }
   };
-
-  // function allIncorrectAnswers(e) {
-  //   const allIncorrectAnswers =
-  //     questions[currentQuestionIndex].incorrectAnswers;
-  //   e.target.classList("incorrect");
-  //   console.log(allIncorrectAnswers);
-  // }
-  // allIncorrectAnswers();
 
   //Replace special letters to correct letters
   const removeSpecialLetter = (re) => {

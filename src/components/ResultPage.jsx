@@ -7,7 +7,7 @@
 // rerun useEffect() from scratch, let it fetch new 10 questions)
 
 import { useState, useEffect } from "react";
-import "../styles/resultpage.css";
+import ResultPageCSS from "../styles/resultpage.module.css";
 
 const calculateScore = (questionsAndAnswers, answers) => {
   let score = 0;
@@ -43,7 +43,7 @@ function ResultPage(props) {
   }, [props.questionsAndAnswers, props.answers]);
 
   return (
-    <div className="container">
+    <div className={ResultPageCSS.container}>
       <div className="endpage-initial">
         <h3>Good job!</h3>
       </div>
