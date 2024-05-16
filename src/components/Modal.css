@@ -118,8 +118,12 @@ body.active-modal {
    display: flex;
    align-self: end;
    padding-right: 40px;
-   position: absolute;
 }
+
+.modal-xmark:hover {
+    cursor: pointer;
+   color: rgb(110, 110, 110);
+ }
 
 /* .xmark {
    display: flex;

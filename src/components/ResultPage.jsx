@@ -56,5 +56,3 @@ function ResultPage (props) {
 
 
 export default ResultPage
-
-
