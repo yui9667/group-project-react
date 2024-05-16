@@ -38,7 +38,7 @@ export default function Modal() {
           <div onClick={toggleModal} className="overlay"></div>
           <div className="popup-content">
             <div onClick={toggleModal} className="modal-xmark">
-              <FontAwesomeIcon icon={faXmark} size="2x" />
+              <FontAwesomeIcon className="{faXmark}" icon={faXmark} size="2x" />
             </div>
             {/* <div onClick={toggleModal} className="modal-xmark">
                      <FontAwesomeIcon icon={faXmark} size="2x" />
