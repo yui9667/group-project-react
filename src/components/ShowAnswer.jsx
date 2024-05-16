@@ -11,6 +11,7 @@ import ErrorMessage from "./ErrorMessage.jsx";
 import Modal from "./Modal.jsx";
 import "../styles/Modal.css";
 import "../styles/showanswer.css";
+
 import ResultPage from "./ResultPage.jsx";
 
 const ShowAnswer = ({ username }) => {
@@ -224,6 +225,7 @@ const ShowAnswer = ({ username }) => {
           <div onClick={toggleModal} className="xmark">
             <FontAwesomeIcon icon={faXmark} size="2x" />
           </div>
+          {showModal ? <Modal /> : null}
           {questionsAndAnswers.length > 0 && answers.length !== 10 ? (
             <div className="outer">
               <h3 className="currentQuestionTrack">
@@ -306,4 +308,5 @@ const ShowAnswer = ({ username }) => {
     </>
   );
 };
+
 export default ShowAnswer;
