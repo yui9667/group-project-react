@@ -4,7 +4,7 @@ import ShowAnswer from "./ShowAnswer";
 import "../styles/intro.css";
 import "../styles/startpage.css";
 
-function StartPage(welcomeMessage) {
+function StartPage({ username }) {
   const [btnClicked, setBtnClicked] = useState(null);
 
   const handleClick = () => {
@@ -30,7 +30,7 @@ function StartPage(welcomeMessage) {
                 }
                 {
                     btnClicked !== null && (
-                        <ShowAnswer />
+                        <ShowAnswer username={username} />
                     )
                 }
             </div>
