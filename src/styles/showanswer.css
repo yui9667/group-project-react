@@ -89,3 +89,38 @@
 .incorrect {
   background-color: #eb9999;
 }
+/*Responsive design*/
+/*Tablet*/
+@media (max-width: 700px) {
+  .currentQuestionTrack {
+    font-size: 19px;
+    top: -24%;
+  }
+
+  .currentQuestion {
+    font-size: 19px;
+  }
+  .xmark {
+    font-size: 13px;
+  }
+}
+@media (max-width: 500px) {
+  .currentQuestionTrack {
+    font-size: 16px;
+    top: -16%;
+  }
+
+  .btn-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .options:nth-child(1),
+  .options:nth-child(2),
+  .options:nth-child(3),
+  .options:nth-child(4) {
+    margin: 10px 20px;
+  }
+  .controls .next-btn {
+    padding: 8px 20px;
+    font-size: 18px;
+  }
+}

@@ -1,0 +1,48 @@
+/*Add module, so it is not affected by other css. Made landingPage css instead of using Modal.css. So I can adjust spin a bit more center */
+
+.landContainer {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+}
+
+.popupContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  max-width: 500px;
+  width: 100%;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1.4;
+  background: #ffffff;
+
+  border-radius: 20px;
+
+  color: #344756;
+}
+
+.waitLetter {
+  margin: 20px;
+}
+.spin {
+  padding-top: 20px;
+}
+
+/*Responsive design*/
+@media (max-width: 550px) {
+  .popupContent {
+    max-width: 300px;
+  }
+  .spin {
+    width: 150px;
+    height: 100px;
+  }
+}
