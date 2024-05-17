@@ -12,7 +12,7 @@ import Modal from "./Modal.jsx";
 import "../components/showanswer.css";
 import ResultPage from "./ResultPage.jsx";
 
-const ShowAnswer = ({ username }) => {
+const ShowAnswer = ({ username, restartGame }) => {
   // const [currentQuestion, setCurrentQuestion] = useState([]);
   const [lock, setLock] = useState(false);
   const [icon, setIcon] = useState(false);
@@ -194,6 +194,7 @@ const ShowAnswer = ({ username }) => {
    const handleEndGame = () => {
       // Add logic here to end the game (e.g., reset state, show final results)
       setGameEnded(true);
+      restartGame();
       // Add logic here to end the game (e.g., reset state, show final results)
       // You can set state to render ResultPage
       console.log("Bye!");
