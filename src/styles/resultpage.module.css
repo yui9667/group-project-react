@@ -1,0 +1,30 @@
+/*Used module for css, so background image won't cover white container
+
+*/
+
+.endpageInitial {
+  letter-spacing: 0.32px;
+  width: 100%;
+  margin: 10px;
+}
+
+.endpageInitial h3 {
+  font-size: 90px;
+  color: #d3807d;
+  font-weight: 800;
+  font-family: "Londrina Solid", sans-serif;
+  letter-spacing: 2px;
+}
+
+.endpageInfo h4 {
+  font-size: 23px;
+  margin: 0;
+}
+
+.btnContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 20px;
+}
+/*Delete exit-btn and close-btn because we get the same codes from modal.css*/

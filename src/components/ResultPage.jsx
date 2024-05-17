@@ -7,52 +7,62 @@
 // rerun useEffect() from scratch, let it fetch new 10 questions)
 
 import { useState, useEffect } from "react";
-import "../styles/resultpage.css";
+import ResultPageCSS from "../styles/resultpage.module.css";
 
 const calculateScore = (questionsAndAnswers, answers) => {
-    let score = 0;
+  let score = 0;
 
-    if (questionsAndAnswers.length === answers.length &&
-        questionsAndAnswers.every(question => question && question.correctAnswer) &&
-        answers.every(answer => answer !== undefined)) {
-            // Iterate over each question
-        questionsAndAnswers.forEach((question, index) => {
-            // Get the answer from the user
-            const answer = answers[index];
-            // Get the correct answer
-            const correctAnswer = question.correctAnswer;
-            // If the selected answer matches the correct answer, compare the score
-            if (answer === correctAnswer) {
-                score++;
-            }
-        });
-    }
-    return score;
+  if (
+    questionsAndAnswers.length === answers.length &&
+    questionsAndAnswers.every(
+      (question) => question && question.correctAnswer
+    ) &&
+    answers.every((answer) => answer !== undefined)
+  ) {
+    // Iterate over each question
+    questionsAndAnswers.forEach((question, index) => {
+      // Get the answer from the user
+      const answer = answers[index];
+      // Get the correct answer
+      const correctAnswer = question.correctAnswer;
+      // If the selected answer matches the correct answer, compare the score
+      if (answer === correctAnswer) {
+        score++;
+      }
+    });
+  }
+  return score;
 };
 
+function ResultPage(props) {
+  // Calculate the score
+  const [score, setScore] = useState([0]);
 
-function ResultPage (props) {
+  useEffect(() => {
+    setScore(calculateScore(props.questionsAndAnswers, props.answers));
+  }, [props.questionsAndAnswers, props.answers]);
 
-    // Calculate the score
-    const [score, setScore] = useState([0]);
-
-    useEffect(() => {
-        setScore(calculateScore(props.questionsAndAnswers, props.answers));
-    }, [props.questionsAndAnswers, props.answers]);
-
-    return(
-        <div className="container">
-            <div className="endpage-initial">
-                <h3>Good job!</h3>
-            </div>
-            <div className="endpage-info" onClick={props.onPress}>
-                <h3>{props.username}, you got a score of {score} out of {props.questionsAndAnswers.length}!</h3>
-                <button onClick={props.onEndGame} className="close-modal">End game</button>
-                <button onClick={props.onTryAgain} className="exit-btn">Try again</button>
-            </div>
+  return (
+    <div className={ResultPageCSS.container}>
+      <div className={ResultPageCSS.endpageInitial}>
+        <h3>Good job!</h3>
+      </div>
+      <div className={ResultPageCSS.endpageInfo} onClick={props.onPress}>
+        <h4>
+          {props.username}, you got a score of {score} out of{" "}
+          {props.questionsAndAnswers.length}!
+        </h4>
+        <div className={ResultPageCSS.btnContainer}>
+          <button onClick={props.onEndGame} className="close-modal btn-modal">
+            End game
+          </button>
+          <button onClick={props.onTryAgain} className="exit-btn btn-modal">
+            Try again
+          </button>
         </div>
-    )
+      </div>
+    </div>
+  );
 }
 
-
-export default ResultPage
+export default ResultPage;
