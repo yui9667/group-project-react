@@ -29,11 +29,12 @@ function StartPage({ username }) {
           <div className="welcome-container">
             <p className="welcome-text">
               {" "}
-              This is a trivia quiz, a general Knowledge category with mixes all
-              easy, middle, and difficult levels together. There are a total of
-              10 questions and 4 options, it shows green with a check icon if
-              you select the correct answer, but if you select the incorrect
-              answer, it shows red color with an xmark. Have fun!
+              Welcome to the QUIZ TIME! Let's test your general knowledge with
+              10 trivia multiple-choice questions of varying difficulty. You'll
+              see 4 options for each question. The correct choice turns green
+              with a check icon. If you select an incorrect answer, it shows red
+              color with a small x-mark. If you would like to leave the game,
+              click on the X mark at the top right of questions. Have fun!
             </p>
             <button onClick={handleClick} className="btn btn-primary start-btn">
               Start
