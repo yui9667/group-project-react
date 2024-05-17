@@ -14,7 +14,7 @@ import "../styles/showanswer.css";
 
 import ResultPage from "./ResultPage.jsx";
 
-const ShowAnswer = ({ username }) => {
+const ShowAnswer = ({ username, restartGame }) => {
   // const [currentQuestion, setCurrentQuestion] = useState([]);
   const [lock, setLock] = useState(false);
   const [icon, setIcon] = useState(false);
@@ -179,6 +179,7 @@ const ShowAnswer = ({ username }) => {
     return re.replaceAll(regex, (match) => removeLetter[match]);
   };
 
+
   const resetAnswers = () => {
     //Reset the game and start again
     //Reset the relevant states or set an initial value to them
@@ -192,14 +193,16 @@ const ShowAnswer = ({ username }) => {
     console.log("Reset the game!");
   };
 
-  // define event handler for ending the game
-  const handleEndGame = () => {
-    // Add logic here to end the game (e.g., reset state, show final results)
-    setGameEnded(true);
-    // Add logic here to end the game (e.g., reset state, show final results)
-    // You can set state to render ResultPage
-    console.log("Bye!");
-  };
+   // define event handler for ending the game
+   const handleEndGame = () => {
+      // Add logic here to end the game (e.g., reset state, show final results)
+      setGameEnded(true);
+      restartGame();
+      // Add logic here to end the game (e.g., reset state, show final results)
+      // You can set state to render ResultPage
+      console.log("Bye!");
+   };
+
 
   // Define event handler for trying again
   const handleTryAgain = () => {
