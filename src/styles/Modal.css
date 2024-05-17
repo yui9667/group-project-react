@@ -106,12 +106,6 @@ body.active-modal {
   align-self: end;
 }
 
-/* .xmark {
-   display: flex;
-   justify-content: flex-end;
-   padding: 10px 20px;
-} */
-
 .xmark:hover {
   cursor: pointer;
   color: rgb(110, 110, 110);

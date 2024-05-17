@@ -1,11 +1,3 @@
-/* Syles for Questions (questions and answers) page */
-
-/* Note for us;
-    -Add X icon to the question card in both css and startpage.jsx
-    -Add specific colors for correct and wrong answers
-    -Add a sign indicating the number of the current question among all questions in both css and startpage.jsx
-*/
-
 .wrapper {
   width: 90%;
   height: 100%;

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-//import Questions from "./Questions";
 import ShowAnswer from "./ShowAnswer";
 import "../styles/intro.css";
 import "../styles/startpage.css";

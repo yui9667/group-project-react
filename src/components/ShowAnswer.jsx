@@ -226,7 +226,7 @@ const ShowAnswer = ({ username, restartGame }) => {
       ) : (
         <div className="outer-cover">
           {/* onClick-event to call the toggleModal function */}
-          {answers.length !== 10 ? (
+          {questionsAndAnswers.length > 0 && answers.length !== 10 ? (
             <div onClick={toggleModal} className="xmark">
               <FontAwesomeIcon icon={faXmark} size="2x" />
             </div>
