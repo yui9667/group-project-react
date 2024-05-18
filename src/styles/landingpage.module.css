@@ -41,8 +41,12 @@
   .popupContent {
     max-width: 300px;
   }
-  .spin {
-    width: 150px;
-    height: 100px;
+}
+@media (max-width: 450px) {
+  .popupContent {
+    max-width: 250px;
+  }
+  .waitLetter {
+    font-size: 16px;
   }
 }
