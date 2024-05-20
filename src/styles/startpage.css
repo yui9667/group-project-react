@@ -28,3 +28,38 @@
   padding: 12px 50px;
   margin-bottom: 20px;
 }
+
+/*Responsive design*/
+/*Tablet*/
+@media (max-width: 700px) {
+  .start-container {
+    max-width: 450px;
+  }
+  .welcome-text {
+    font-size: 20px;
+    max-width: 380px;
+    line-height: 1.7;
+  }
+}
+@media (max-width: 500px) {
+  .start-container {
+    max-width: 370px;
+  }
+  .welcome-text {
+    font-size: 18px;
+    max-width: 300px;
+  }
+}
+@media (max-width: 400px) {
+  .start-container {
+    max-width: 290px;
+  }
+  .welcome-text {
+    font-size: 16px;
+    max-width: 250px;
+  }
+  .start-btn {
+    font-size: 16px;
+    padding: 7px 20px;
+  }
+}

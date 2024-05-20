@@ -28,3 +28,28 @@
   margin: 20px;
 }
 /*Delete exit-btn and close-btn because we get the same codes from modal.css*/
+
+/*Responsive design*/
+/*Tablet*/
+@media (max-width: 700px) {
+  .endpageInitial h3 {
+    font-size: 60px;
+  }
+
+  .endpageInfo h4 {
+    font-size: 20px;
+  }
+}
+@media (max-width: 500px) {
+  .endpageInitial h3 {
+    font-size: 40px;
+  }
+  .endpageInfo h4 {
+    font-size: 18px;
+  }
+}
+@media (max-width: 400px) {
+  .endpageInfo h4 {
+    font-size: 16px;
+  }
+}
