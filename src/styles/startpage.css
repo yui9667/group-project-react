@@ -14,7 +14,7 @@
 .welcome-text {
   text-align: center;
   width: 100%;
-  max-width: 450px;
+  max-width: 500px;
   padding: 20px 0;
   font-size: 24px;
   line-height: 2.5rem;
@@ -27,4 +27,8 @@
 .start-btn {
   padding: 12px 50px;
   margin-bottom: 20px;
+}
+
+.introtext {
+  padding-top: 30px;
 }

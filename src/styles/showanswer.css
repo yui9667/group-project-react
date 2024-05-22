@@ -6,6 +6,11 @@
   padding: 10px 20px;
 }
 
+.xmark:hover {
+  cursor: pointer;
+  color: rgb(110, 110, 110);
+}
+
 .outer-cover {
   width: 100%;
   height: 100%;
