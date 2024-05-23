@@ -7,7 +7,7 @@ import Startpage from "./Startpage.jsx";
 
 
 
-export default function Modal({ onTryAgain }) {
+export default function Modal() {
   const [showModal, setModal] = useState(true);
 
   const toggleModal = () => {
@@ -22,11 +22,6 @@ export default function Modal({ onTryAgain }) {
 
   const element = <FontAwesomeIcon icon={faXmark} />;
 
-  /*const onLinkClick = (e) => {
-    e.preventDefault();
-    const navigate = Navigate();
-    Navigate('./Startpage.jsx');
-  };*/
 
   function refreshPage(){ 
     window.location.reload(); 
