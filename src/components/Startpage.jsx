@@ -3,6 +3,7 @@ import ShowAnswer from "./ShowAnswer";
 import "../styles/intro.css";
 import "../styles/startpage.css";
 
+
 function StartPage({ username }) {
   const [btnClicked, setBtnClicked] = useState(false);
   const [restartGame, setRestartGame] = useState(null);
@@ -30,11 +31,8 @@ function StartPage({ username }) {
             <p className="welcome-text">
               {" "}
               Welcome to the QUIZ TIME! Let's test your general knowledge with
-              10 trivia multiple-choice questions of varying difficulty. You'll
-              see 4 options for each question. The correct choice turns green
-              with a check icon. If you select an incorrect answer, it shows red
-              color with a small x-mark. If you would like to leave the game,
-              click on the X mark at the top right of questions. Have fun!
+              10 randomized trivia questions from various subjects. 
+              <p className="introtext">Have fun!</p>
             </p>
             <button onClick={handleClick} className="btn btn-primary start-btn">
               Start

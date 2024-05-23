@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import Intro from "./components/Intro";
 import StartPage from "./components/Startpage.jsx";
 
+
 // Component Functional
 function App() {
   // variables, each state is a variable kept in the component all the time
   const [username, setUsername] = useState("");
 
+ 
   useEffect(() => {
     console.log(username);
   }, []);

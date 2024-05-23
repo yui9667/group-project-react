@@ -2,8 +2,10 @@ import { useState } from "react";
 import "../styles/Modal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import Startpage from "./Startpage.jsx";
 
-import StartPage from "./Startpage";
+
+
 
 export default function Modal() {
   const [showModal, setModal] = useState(true);
@@ -11,8 +13,6 @@ export default function Modal() {
   const toggleModal = () => {
     setModal(!showModal); //! = true to false and false to true
   };
-
-  const backToMenu = () => <StartPage />;
 
   if (showModal) {
     document.body.classList.add("active-modal");
@@ -22,6 +22,11 @@ export default function Modal() {
 
   const element = <FontAwesomeIcon icon={faXmark} />;
 
+
+  function refreshPage(){ 
+    window.location.reload(); 
+}
+  
   return (
     <>
       {showModal && (
@@ -39,7 +44,7 @@ export default function Modal() {
               <button onClick={toggleModal} className="close-modal btn-modal">
                 No, go back
               </button>
-              <button onClick={backToMenu} className="exit-btn btn-modal">
+              <button onClick={refreshPage} className="exit-btn btn-modal">
                 {" "}
                 Yes, exit
               </button>

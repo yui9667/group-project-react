@@ -106,7 +106,7 @@ body.active-modal {
   align-self: end;
 }
 
-.xmark:hover {
+.modal-xmark:hover {
   cursor: pointer;
   color: rgb(110, 110, 110);
 }
