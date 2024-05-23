@@ -110,3 +110,52 @@ body.active-modal {
   cursor: pointer;
   color: rgb(110, 110, 110);
 }
+
+/*Responsive design*/
+/*Tablet*/
+@media (max-width: 800px) {
+  .popup-content {
+    max-width: 600px;
+  }
+}
+@media (max-width: 700px) {
+  .popup-content {
+    max-width: 500px;
+  }
+
+  .modal-info {
+    font-size: 18px;
+  }
+  .btn-modal {
+    width: 160px;
+    height: 50px;
+    font-size: 23px;
+  }
+}
+@media (max-width: 550px) {
+  .popup-content {
+    max-width: 400px;
+  }
+  .modal-info {
+    padding: 0 30px;
+  }
+  .btn-modal {
+    width: 130px;
+    height: 50px;
+    font-size: 20px;
+  }
+}
+@media (max-width: 440px) {
+  .popup-content {
+    max-width: 270px;
+  }
+  .modal-info {
+    font-size: 16px;
+    width: 320px;
+  }
+  .btn-modal {
+    width: 100px;
+    height: 40px;
+    font-size: 18px;
+  }
+}
