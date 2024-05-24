@@ -218,6 +218,7 @@ const ShowAnswer = ({ username, restartGame }) => {
     // Add logic here to reset the game (e.g., reset state, start over)
     console.log("Let's try again!");
     resetAnswers();
+    //make setGoToResult(false) to be able to try the game again
     setGoToResult(false);
     setFetchNewQuestions(!fetchNewQuestions);
   };
