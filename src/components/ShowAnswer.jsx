@@ -169,7 +169,7 @@ const ShowAnswer = ({ username, restartGame }) => {
           let arr = [...answers];
           arr.push(ans);
           setAnswers(arr);
-        }, 2000)
+        }, 1000)
       } else {
         answers.push(ans);
       }
