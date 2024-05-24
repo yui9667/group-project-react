@@ -30,8 +30,9 @@ const ShowAnswer = ({ username, restartGame }) => {
   const [error, setError] = useState(false);
   const [gameEnded, setGameEnded] = useState(false);
   const [fetchNewQuestions, setFetchNewQuestions] = useState(false);
-
   const [showModal, setShowModal] = useState(false);
+
+  const [goToResult, setGoToResult] = useState(false);
 
   // function to call for the Modal to open when click on the Xmark
   const toggleModal = () => {
@@ -113,8 +114,6 @@ const ShowAnswer = ({ username, restartGame }) => {
       //add setSelectedAnswer("") as a second step to let the user answer array becomes empty before each question.
       setSelectedAnswer("");
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else if (currentQuestionIndex === 9) {
-      console.log("hello");
     }
   }
 
@@ -163,21 +162,16 @@ const ShowAnswer = ({ username, restartGame }) => {
       console.log("correctAnswer:", correctAnswer);
       console.log(ans);
       // push and store each answer to answer array
-      if(answers.length === 9){
-        setTimeout(() => {
-        // When answers.push(ans) is used, react coult not render the code block inside setTimeout. So, define a new array to push answers to this array.
-          let arr = [...answers];
-          arr.push(ans);
-          setAnswers(arr);
-        }, 1000)
-      } else {
-        answers.push(ans);
-      }
+      answers.push(ans);
 
       setSelectedAnswer(ans);
     }
   };
 
+    //See the results after the last question
+    function seeResult() {
+        setGoToResult(true);
+    }
 
   //Replace special letters to correct letters
   const removeSpecialLetter = (re) => {
@@ -240,7 +234,7 @@ const ShowAnswer = ({ username, restartGame }) => {
         <div className="outer-cover">
           {/* onClick-event to call the toggleModal function */}
           {
-          questionsAndAnswers.length > 0 && answers.length !== 10 ? (
+          questionsAndAnswers.length > 0 && !goToResult ? (
             <div onClick={toggleModal} className="xmark">
               <FontAwesomeIcon icon={faXmark} size="2x" />
             </div>
@@ -249,7 +243,7 @@ const ShowAnswer = ({ username, restartGame }) => {
             )
           }
           {showModal ? <Modal /> : null}
-          {questionsAndAnswers.length > 0 && answers.length !== 10 ? (
+          {questionsAndAnswers.length > 0 && !goToResult ? (
             <div className="outer">
               <h3 className="currentQuestionTrack">
                 Question {currentQuestionIndex + 1} / 10
@@ -310,7 +304,7 @@ const ShowAnswer = ({ username, restartGame }) => {
                   }
                   {currentQuestionIndex === 9 &&
                   <button
-                  onClick={nextQuestion}
+                  onClick={seeResult}
                   disabled={!selectedAnswer}
                   className="finish-btn"
                 >
@@ -326,7 +320,7 @@ const ShowAnswer = ({ username, restartGame }) => {
           )}
           {
             // After the last page is completed, 'ResultPage' will be updated considering the given name to move on to the last page.
-            answers.length === 10 ? (
+            goToResult ? (
               <ResultPage
                 onEndGame={handleEndGame}
                 questionsAndAnswers={questionsAndAnswers}
