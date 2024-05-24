@@ -114,18 +114,20 @@ const ShowAnswer = ({ username, restartGame }) => {
       setSelectedAnswer("");
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else if (currentQuestionIndex === 9) {
-      // setIsFinished(1);
       console.log("hello");
     }
   }
 
+
   //Showing correct or incorrect
   const checkAnswer = (e, ans) => {
-    const correctAnswer =
-      questionsAndAnswers[currentQuestionIndex].correctAnswer;
+    const correctAnswer = questionsAndAnswers[currentQuestionIndex].correctAnswer;
     //if lock is equal to false, change to true which means then user can select only one option.
     //if correct answer equal to ans, change the color to green, otherwise change to red.
+
     if (!lock) {
+      console.log("hello");
+
       if (correctAnswer === ans) {
         e.target.classList.add("correct");
         setLock(true);
@@ -161,10 +163,21 @@ const ShowAnswer = ({ username, restartGame }) => {
       console.log("correctAnswer:", correctAnswer);
       console.log(ans);
       // push and store each answer to answer array
-      answers.push(ans);
+      if(answers.length === 9){
+        setTimeout(() => {
+        // When answers.push(ans) is used, react coult not render the code block inside setTimeout. So, define a new array to push answers to this array.
+          let arr = [...answers];
+          arr.push(ans);
+          setAnswers(arr);
+        }, 2000)
+      } else {
+        answers.push(ans);
+      }
+
       setSelectedAnswer(ans);
     }
   };
+
 
   //Replace special letters to correct letters
   const removeSpecialLetter = (re) => {
@@ -226,13 +239,15 @@ const ShowAnswer = ({ username, restartGame }) => {
       ) : (
         <div className="outer-cover">
           {/* onClick-event to call the toggleModal function */}
-          {questionsAndAnswers.length > 0 && answers.length !== 10 ? (
+          {
+          questionsAndAnswers.length > 0 && answers.length !== 10 ? (
             <div onClick={toggleModal} className="xmark">
               <FontAwesomeIcon icon={faXmark} size="2x" />
             </div>
-          ) : (
-            ""
-          )}
+            ) : (
+              ""
+            )
+          }
           {showModal ? <Modal /> : null}
           {questionsAndAnswers.length > 0 && answers.length !== 10 ? (
             <div className="outer">
