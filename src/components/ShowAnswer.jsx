@@ -18,7 +18,7 @@ const ShowAnswer = ({ username, restartGame }) => {
   // const [currentQuestion, setCurrentQuestion] = useState([]);
   const [lock, setLock] = useState(false);
   const [icon, setIcon] = useState(false);
-  // store questions not questions and answer!
+  // store questions, not questions and answer!
   const [questionsAndAnswers, setQuestionsAndAnswers] = useState([]);
   // tracks the current question.  it starts at the first question (0)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -298,6 +298,7 @@ const ShowAnswer = ({ username, restartGame }) => {
                   ))}
                 </div>
                 <div className="controls">
+                  {currentQuestionIndex < 9 &&
                   <button
                     onClick={nextQuestion}
                     disabled={!selectedAnswer}
@@ -306,6 +307,17 @@ const ShowAnswer = ({ username, restartGame }) => {
                     {" "}
                     Next Question{" "}
                   </button>
+                  }
+                  {currentQuestionIndex === 9 &&
+                  <button
+                  onClick={nextQuestion}
+                  disabled={!selectedAnswer}
+                  className="finish-btn"
+                >
+                  {" "}
+                  See the Results{" "}
+                  </button>
+                  }
                 </div>
               </div>
             </div>
