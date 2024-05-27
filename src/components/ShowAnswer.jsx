@@ -18,7 +18,7 @@ const ShowAnswer = ({ username, restartGame }) => {
   // const [currentQuestion, setCurrentQuestion] = useState([]);
   const [lock, setLock] = useState(false);
   const [icon, setIcon] = useState(false);
-  // store questions not questions and answer!
+  // store questions, not questions and answer!
   const [questionsAndAnswers, setQuestionsAndAnswers] = useState([]);
   // tracks the current question.  it starts at the first question (0)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -30,8 +30,9 @@ const ShowAnswer = ({ username, restartGame }) => {
   const [error, setError] = useState(false);
   const [gameEnded, setGameEnded] = useState(false);
   const [fetchNewQuestions, setFetchNewQuestions] = useState(false);
-
   const [showModal, setShowModal] = useState(false);
+
+  const [goToResult, setGoToResult] = useState(false);
 
   // function to call for the Modal to open when click on the Xmark
   const toggleModal = () => {
@@ -113,19 +114,19 @@ const ShowAnswer = ({ username, restartGame }) => {
       //add setSelectedAnswer("") as a second step to let the user answer array becomes empty before each question.
       setSelectedAnswer("");
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else if (currentQuestionIndex === 9) {
-      // setIsFinished(1);
-      console.log("hello");
     }
   }
 
+
   //Showing correct or incorrect
   const checkAnswer = (e, ans) => {
-    const correctAnswer =
-      questionsAndAnswers[currentQuestionIndex].correctAnswer;
+    const correctAnswer = questionsAndAnswers[currentQuestionIndex].correctAnswer;
     //if lock is equal to false, change to true which means then user can select only one option.
     //if correct answer equal to ans, change the color to green, otherwise change to red.
+
     if (!lock) {
+      console.log("hello");
+
       if (correctAnswer === ans) {
         e.target.classList.add("correct");
         setLock(true);
@@ -162,9 +163,15 @@ const ShowAnswer = ({ username, restartGame }) => {
       console.log(ans);
       // push and store each answer to answer array
       answers.push(ans);
+
       setSelectedAnswer(ans);
     }
   };
+
+    //See the results after the last question
+    function seeResult() {
+        setGoToResult(true);
+    }
 
   //Replace special letters to correct letters
   const removeSpecialLetter = (re) => {
@@ -211,6 +218,8 @@ const ShowAnswer = ({ username, restartGame }) => {
     // Add logic here to reset the game (e.g., reset state, start over)
     console.log("Let's try again!");
     resetAnswers();
+    //make setGoToResult(false) to be able to try the game again
+    setGoToResult(false);
     setFetchNewQuestions(!fetchNewQuestions);
   };
 
@@ -226,15 +235,17 @@ const ShowAnswer = ({ username, restartGame }) => {
       ) : (
         <div className="outer-cover">
           {/* onClick-event to call the toggleModal function */}
-          {questionsAndAnswers.length > 0 && answers.length !== 10 ? (
+          {
+          questionsAndAnswers.length > 0 && !goToResult ? (
             <div onClick={toggleModal} className="xmark">
               <FontAwesomeIcon icon={faXmark} size="2x" />
             </div>
-          ) : (
-            ""
-          )}
+            ) : (
+              ""
+            )
+          }
           {showModal ? <Modal /> : null}
-          {questionsAndAnswers.length > 0 && answers.length !== 10 ? (
+          {questionsAndAnswers.length > 0 && !goToResult ? (
             <div className="outer">
               <h3 className="currentQuestionTrack">
                 Question {currentQuestionIndex + 1} / 10
@@ -283,6 +294,7 @@ const ShowAnswer = ({ username, restartGame }) => {
                   ))}
                 </div>
                 <div className="controls">
+                  {currentQuestionIndex < 9 &&
                   <button
                     onClick={nextQuestion}
                     disabled={!selectedAnswer}
@@ -291,6 +303,17 @@ const ShowAnswer = ({ username, restartGame }) => {
                     {" "}
                     Next Question{" "}
                   </button>
+                  }
+                  {currentQuestionIndex === 9 &&
+                  <button
+                  onClick={seeResult}
+                  disabled={!selectedAnswer}
+                  className="finish-btn"
+                >
+                  {" "}
+                  See the Results{" "}
+                  </button>
+                  }
                 </div>
               </div>
             </div>
@@ -299,7 +322,7 @@ const ShowAnswer = ({ username, restartGame }) => {
           )}
           {
             // After the last page is completed, 'ResultPage' will be updated considering the given name to move on to the last page.
-            answers.length === 10 ? (
+            goToResult ? (
               <ResultPage
                 onEndGame={handleEndGame}
                 questionsAndAnswers={questionsAndAnswers}

@@ -21,7 +21,7 @@
   font-weight: 800;
   color: #d98b88;
   font-family: "Londrina Solid", sans-serif;
-  margin-bottom: 25px;
+  margin-bottom: 6rem;
 }
 
 .form-container {
@@ -87,6 +87,7 @@
   .inner-container h2,
   .container h2 {
     font-size: 80px;
+    margin-bottom: 5rem;
   }
   .form-container {
     max-width: 400px;

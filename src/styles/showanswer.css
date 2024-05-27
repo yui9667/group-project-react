@@ -66,7 +66,9 @@
   margin: 0 10% 6% 3%;
 }
 
-.controls .next-btn {
+/* add finish-btn to the last question instead of .controls .next-btn in order to pass to the result page component */
+.controls .next-btn,
+.controls .finish-btn {
   background-color: #8caf89;
   border: none;
   border-radius: 5px;
@@ -84,7 +86,8 @@
   margin-bottom: 20px;
 }
 
-.next-btn:hover {
+.next-btn:hover,
+.finish-btn:hover {
   background-color: #69d38a;
 }
 
