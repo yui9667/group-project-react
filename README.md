@@ -1,70 +1,21 @@
-# Getting Started with Create React App
+# Quiz App 🎮
+![Screenshot 2025-04-07 at 14 29 25](https://github.com/user-attachments/assets/057d718c-86cc-43c8-b291-9010e4e6e1e3)
+This is a Quiz app that uses trivia API. There are 10 questions in total about General knowleade. It's also a user-friendly app that shows the correct answer in green color and check icon. If a user selects an incorrect answer, the answer is going to be red color with an x mark. Enjoy the game and try out how many points you can get 😊
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Members 👤
+This is a group project from Sundsgården Folkhögskola.
+- Yui Jensen
+- Ezgi Senyurt-Ertürk
+- Daniela Y. Zagal
+- Michelle Pettersson
 
-## Available Scripts
+## Technologies ⚒️
+- Frontend: React, CSS
+- Build Tool: Vite
+- API: Trivia p API 
+- Others: Axios, React Router
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Duration
+- 1 month
+## Reflection ✨
+We started by discussing potential project ideas that we could complete in less than a week and shared our thoughts. With limited time, we quickly made a decision and began creating a framework to prioritize tasks and organize our work. We managed our time effectively by sharing daily updates via messages and holding one or two meetings each week. Through this experience, I learned that coding is crucial, but communication plays an equally important role in organizing time, reducing task duplication, tracking progress, and supporting each other.
